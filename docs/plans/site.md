@@ -84,9 +84,9 @@ components/
 
 ### Task 3 — Hero section + TerminalWindow component
 
-- [ ] Create TerminalWindow component with terminal chrome, prompt, and simulated output
-- [ ] Create Hero section with eyebrow, headline, subhead, CTA button, terminal, trust badges
-- [ ] Validate: pnpm build exits 0
+- [x] Create TerminalWindow component with terminal chrome, prompt, and simulated output
+- [x] Create Hero section with eyebrow, headline, subhead, CTA button, terminal, trust badges
+- [x] Validate: pnpm build exits 0
 
 ---
 
