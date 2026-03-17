@@ -1,0 +1,22 @@
+services:
+  {{name}}:
+    build: .
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.local
+
+  # Uncomment to add a Postgres database:
+  # postgres:
+  #   image: postgres:16-alpine
+  #   environment:
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: password
+  #     POSTGRES_DB: {{name}}
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+
+# volumes:
+#   postgres_data:
