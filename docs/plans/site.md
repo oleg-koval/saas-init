@@ -92,10 +92,10 @@ components/
 
 ### Task 4 — Problem, ValueStack, SocialProof sections
 
-- [ ] Create Problem section with 3 pain-point cards using Lucide icons
-- [ ] Create ValueStack section with 4 tier cards and price comparison
-- [ ] Create SocialProof section with 3 testimonial cards
-- [ ] Validate: pnpm build exits 0
+- [x] Create Problem section with 3 pain-point cards using Lucide icons
+- [x] Create ValueStack section with 4 tier cards and price comparison
+- [x] Create SocialProof section with 3 testimonial cards
+- [x] Validate: pnpm build exits 0
 
 ---
 
