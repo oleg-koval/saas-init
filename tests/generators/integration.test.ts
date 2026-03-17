@@ -44,9 +44,9 @@ const DB_FILES: Record<string, string[]> = {
 // Expected file counts per combo (payments=null, email=null)
 // supabase db writes utils/supabase/db.ts + utils/supabase/client.ts (unless auth=supabase already wrote client.ts)
 const EXPECTED_FILE_COUNT: Record<string, Record<string, number>> = {
-  clerk: { postgres: 14, sqlite: 14, supabase: 13 },
-  nextauth: { postgres: 13, sqlite: 13, supabase: 12 },
-  supabase: { postgres: 14, sqlite: 14, supabase: 12 },
+  clerk: { postgres: 17, sqlite: 17, supabase: 16 },
+  nextauth: { postgres: 16, sqlite: 16, supabase: 15 },
+  supabase: { postgres: 17, sqlite: 17, supabase: 15 },
 }
 
 async function countFilesRecursive(dir: string): Promise<number> {

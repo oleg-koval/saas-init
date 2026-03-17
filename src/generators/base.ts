@@ -1,5 +1,7 @@
 import path from 'path'
+import fs from 'fs-extra'
 import { writeTemplate } from '../utils/files.js'
+import { mergeDeps } from '../utils/deps.js'
 import { TEMPLATES_ROOT } from '../utils/paths.js'
 import type { ProjectConfig } from '../types.js'
 
@@ -16,6 +18,9 @@ export async function generate(config: ProjectConfig, outDir: string): Promise<v
     ['tsconfig.json', 'tsconfig.json'],
     ['package.json', 'package.json'],
     ['.gitignore', '.gitignore'],
+    ['postcss.config.mjs', 'postcss.config.mjs'],
+    ['lib/utils.ts', 'lib/utils.ts'],
+    ['components.json', 'components.json'],
   ]
 
   await Promise.all(
@@ -27,4 +32,17 @@ export async function generate(config: ProjectConfig, outDir: string): Promise<v
       )
     )
   )
+
+  // Merge Tailwind v4 and shadcn/ui dependencies into package.json
+  const pkgPath = path.join(outDir, 'package.json')
+  const pkg = await fs.readJson(pkgPath)
+  pkg.dependencies = mergeDeps(pkg.dependencies ?? {}, {
+    clsx: '^2.0.0',
+    'tailwind-merge': '^2.0.0',
+  })
+  pkg.devDependencies = mergeDeps(pkg.devDependencies ?? {}, {
+    tailwindcss: '^4.0.0',
+    '@tailwindcss/postcss': '^4.0.0',
+  })
+  await fs.writeJson(pkgPath, pkg, { spaces: 2 })
 }

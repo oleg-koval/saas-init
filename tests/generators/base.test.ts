@@ -43,6 +43,13 @@ describe('base generator', () => {
     }
   })
 
+  it('creates postcss.config.mjs and lib/utils.ts', async () => {
+    await generate({ ...config, outDir: tmpDir }, tmpDir)
+
+    expect(await fs.pathExists(path.join(tmpDir, 'postcss.config.mjs'))).toBe(true)
+    expect(await fs.pathExists(path.join(tmpDir, 'lib/utils.ts'))).toBe(true)
+  })
+
   it('substitutes project name in package.json', async () => {
     await generate({ ...config, outDir: tmpDir }, tmpDir)
 
@@ -57,6 +64,24 @@ describe('base generator', () => {
     const pkgContent = await fs.readFile(path.join(tmpDir, 'package.json'), 'utf-8')
     const pkg = JSON.parse(pkgContent)
     expect(pkg.dependencies).toHaveProperty('next')
+  })
+
+  it('includes tailwindcss in devDependencies and clsx in dependencies', async () => {
+    await generate({ ...config, outDir: tmpDir }, tmpDir)
+
+    const pkgContent = await fs.readFile(path.join(tmpDir, 'package.json'), 'utf-8')
+    const pkg = JSON.parse(pkgContent)
+    expect(pkg.devDependencies).toHaveProperty('tailwindcss')
+    expect(pkg.devDependencies).toHaveProperty('@tailwindcss/postcss')
+    expect(pkg.dependencies).toHaveProperty('clsx')
+    expect(pkg.dependencies).toHaveProperty('tailwind-merge')
+  })
+
+  it('globals.css contains @import "tailwindcss"', async () => {
+    await generate({ ...config, outDir: tmpDir }, tmpDir)
+
+    const css = await fs.readFile(path.join(tmpDir, 'app/globals.css'), 'utf-8')
+    expect(css).toContain('@import "tailwindcss"')
   })
 
   it('substitutes project name in layout.tsx', async () => {
