@@ -1,0 +1,30 @@
+import path from 'path'
+import fs from 'fs-extra'
+import { writeTemplate } from '../../utils/files.js'
+import { appendEnv } from '../../utils/files.js'
+import { mergeDeps } from '../../utils/deps.js'
+import { TEMPLATES_ROOT } from '../../utils/paths.js'
+import type { ProjectConfig } from '../../types.js'
+
+const TEMPLATES_DIR = path.join(TEMPLATES_ROOT, 'email/postmark')
+
+export async function generate(config: ProjectConfig, outDir: string): Promise<void> {
+  await writeTemplate(
+    path.join(TEMPLATES_DIR, 'lib/email.ts'),
+    path.join(outDir, 'lib/email.ts'),
+    {}
+  )
+
+  // Merge postmark dep into package.json
+  const pkgPath = path.join(outDir, 'package.json')
+  const pkg = await fs.readJson(pkgPath)
+  pkg.dependencies = mergeDeps(pkg.dependencies ?? {}, {
+    postmark: '^4.0.0',
+  })
+  await fs.writeJson(pkgPath, pkg, { spaces: 2 })
+
+  // Append Postmark env var to .env.example
+  await appendEnv(outDir, {
+    POSTMARK_API_TOKEN: 'your_postmark_server_api_token',
+  })
+}

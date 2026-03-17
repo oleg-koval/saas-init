@@ -168,6 +168,8 @@ Set up the Node.js/TypeScript project with pnpm, tsup build, vitest, ESLint, Pre
 
 **Success:** `pnpm build` produces `dist/index.js`. `node dist/index.js --version` exits 0. `pnpm lint` and `pnpm format --check` exit 0 on an empty `src/`.
 
+- [x] Complete TASK-001
+
 ---
 
 ### TASK-002 — Types and ProjectConfig schema
@@ -176,6 +178,8 @@ Set up the Node.js/TypeScript project with pnpm, tsup build, vitest, ESLint, Pre
 Define `ProjectConfig` type and all stack option string unions. Export zod schema `projectConfigSchema`.
 
 **Success:** Tests pass. Schema accepts a valid complete config. Schema rejects an unknown auth value, a null database, and a missing `name` field.
+
+- [x] Complete TASK-002
 
 ---
 
@@ -186,6 +190,8 @@ Register `init` command via commander. Stub body calls `console.log('todo')`.
 
 **Success:** `node dist/index.js init` prints `todo` and exits 0. `node dist/index.js --help` lists the `init` command.
 
+- [x] Complete TASK-003
+
 ---
 
 ### TASK-004 — Template utility
@@ -194,6 +200,8 @@ Register `init` command via commander. Stub body calls `console.log('todo')`.
 Implement `replaceVars(content, vars)`. Missing keys leave the placeholder intact (no throw).
 
 **Success:** Tests cover: single replacement, multiple replacements, missing key (placeholder preserved), adjacent `{{}}` tokens, empty vars object.
+
+- [x] Complete TASK-004
 
 ---
 
@@ -204,6 +212,8 @@ Implement `writeTemplate`, `copyDir`, `ensureDir`, `appendEnv` using `fs-extra`.
 
 **Success:** Tests write to a temp directory. Assert: `writeTemplate` produces correct substituted content; `appendEnv` creates the file on first call and appends (not overwrites) on subsequent calls; `copyDir` reproduces directory structure.
 
+- [x] Complete TASK-005
+
 ---
 
 ### TASK-006 — Dependency merge utility
@@ -212,6 +222,8 @@ Implement `writeTemplate`, `copyDir`, `ensureDir`, `appendEnv` using `fs-extra`.
 Implement `mergeDeps(base, additions)` — merges two dependency maps, additions win on conflict. Does not mutate inputs.
 
 **Success:** Tests cover: standard merge, conflict (addition wins), empty base, empty additions, both empty.
+
+- [x] Complete TASK-006
 
 ---
 
@@ -222,6 +234,8 @@ Use `@clack/prompts`. Validate project name (npm-valid: lowercase, no spaces, no
 
 **Success:** Returns `{ name, outDir }` for valid input. Validation rejects `"My App"`, `"my_app"`, `""`. When `isCancel()` returns true, function calls `process.exit(0)` — verified by mocking `process.exit`.
 
+- [x] Complete TASK-007
+
 ---
 
 ### TASK-008 — Prompt: auth provider
@@ -230,6 +244,8 @@ Use `@clack/prompts`. Validate project name (npm-valid: lowercase, no spaces, no
 Single-select: Clerk / NextAuth / Supabase Auth. Returns `{ auth: AuthProvider }`.
 
 **Success:** Each of the three selections maps to the correct union value (`'clerk'`, `'nextauth'`, `'supabase'`). Cancellation calls `process.exit(0)`.
+
+- [x] Complete TASK-008
 
 ---
 
@@ -240,6 +256,8 @@ Single-select: Postgres / SQLite / Supabase. Returns `{ database: DatabaseProvid
 
 **Success:** Each selection maps correctly. Cancellation calls `process.exit(0)`.
 
+- [x] Complete TASK-009
+
 ---
 
 ### TASK-010 — Prompt: payments
@@ -248,6 +266,8 @@ Single-select: Postgres / SQLite / Supabase. Returns `{ database: DatabaseProvid
 Single-select: Stripe / Lemon Squeezy / Skip. Returns `{ payments: PaymentsProvider | null }`.
 
 **Success:** Skip returns `null`. Other selections map to `'stripe'` and `'lemonsqueezy'`. Cancellation calls `process.exit(0)`.
+
+- [x] Complete TASK-010
 
 ---
 
@@ -258,6 +278,8 @@ Single-select: Resend / Postmark / Skip. Returns `{ email: EmailProvider | null 
 
 **Success:** Skip returns `null`. Cancellation calls `process.exit(0)`.
 
+- [x] Complete TASK-011
+
 ---
 
 ### TASK-012 — Prompt: summary + confirm
@@ -266,6 +288,8 @@ Single-select: Resend / Postmark / Skip. Returns `{ email: EmailProvider | null 
 Display all `ProjectConfig` fields. Confirm Y/n. On N or cancel, print abort message and call `process.exit(0)`.
 
 **Success:** Given a complete config, all 6 fields are present in the rendered output. On cancel/N, `process.exit(0)` is called — verified by mocking. Does not call any generator directly (generator call is the caller's responsibility).
+
+- [x] Complete TASK-012
 
 ---
 
@@ -276,6 +300,8 @@ Static Next.js app router base files. `layout.tsx` uses `{{name}}` as the metada
 
 **Success:** Files exist and are valid UTF-8. `layout.tsx` contains `{{name}}` placeholder. `next.config.ts` is a valid ES module export.
 
+- [x] Complete TASK-013
+
 ---
 
 ### TASK-014 — Base templates: config files
@@ -284,6 +310,8 @@ Static Next.js app router base files. `layout.tsx` uses `{{name}}` as the metada
 `package.json` uses `{{name}}` as the project name. `tsconfig.json` is strict-mode Next.js config. `.gitignore` covers `node_modules`, `.next`, `.env.local`.
 
 **Success:** Files exist. `package.json` contains `{{name}}`. `tsconfig.json` has `"strict": true`.
+
+- [x] Complete TASK-014
 
 ---
 
@@ -294,6 +322,8 @@ Reads from `templates/base/`. Writes all 6 base files to `outDir`. Calls `mergeD
 
 **Success:** Given a config with `name: 'my-app'`, output directory contains `app/layout.tsx`, `app/page.tsx`, `next.config.ts`, `tsconfig.json`, `package.json`, `.gitignore`. Generated `package.json` has `"name": "my-app"` and includes `next` as a dependency.
 
+- [x] Complete TASK-015
+
 ---
 
 ### TASK-016 — Auth templates: Clerk
@@ -302,6 +332,8 @@ Reads from `templates/base/`. Writes all 6 base files to `outDir`. Calls `mergeD
 Clerk middleware wraps the app. Sign-in and sign-up use `[[...sign-in]]` / `[[...sign-up]]` catch-all routes. Plain template files, no `{{}}` variables needed.
 
 **Success:** Files exist and are valid UTF-8. Middleware exports a default `clerkMiddleware()` call. Sign-in page exports a default component rendering `<SignIn />`.
+
+- [x] Complete TASK-016
 
 ---
 
@@ -312,6 +344,8 @@ Copies 3 Clerk templates to `outDir`. Merges `@clerk/nextjs` into `package.json`
 
 **Success:** Output contains `middleware.ts`, `app/sign-in/page.tsx`, `app/sign-up/page.tsx`. `package.json` includes `@clerk/nextjs`. `.env.example` contains both Clerk env vars.
 
+- [x] Complete TASK-017
+
 ---
 
 ### TASK-018 — Auth generator: NextAuth
@@ -320,6 +354,8 @@ Copies 3 Clerk templates to `outDir`. Merges `@clerk/nextjs` into `package.json`
 Route handler and `auth.ts` config. Merges `next-auth` dep. Appends `AUTH_SECRET` to `.env.example`.
 
 **Success:** Output contains both files. `package.json` includes `next-auth`. `.env.example` contains `AUTH_SECRET`. (3 files total — generator + 2 templates.)
+
+- [x] Complete TASK-018
 
 ---
 
@@ -330,6 +366,8 @@ Browser client, server client (SSR), and middleware using `@supabase/ssr`.
 
 **Success:** Files exist. Client uses `createBrowserClient`. Server uses `createServerClient`. Middleware exports default.
 
+- [x] Complete TASK-019
+
 ---
 
 ### TASK-020 — Auth generator: Supabase Auth
@@ -338,6 +376,8 @@ Browser client, server client (SSR), and middleware using `@supabase/ssr`.
 Copies 3 Supabase Auth templates to `outDir`. Merges `@supabase/ssr` and `@supabase/supabase-js`. Appends `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` to `.env.example` only if not already present (dedup with Supabase DB).
 
 **Success:** Output contains `utils/supabase/client.ts`, `utils/supabase/server.ts`, `middleware.ts`. `.env.example` contains both vars. Running the generator twice does not duplicate env vars.
+
+- [x] Complete TASK-020
 
 ---
 
@@ -348,6 +388,8 @@ Drizzle config pointing at `DATABASE_URL`. Schema stub with a `users` table. DB 
 
 **Success:** Files exist and are valid UTF-8. `drizzle.config.ts` references `process.env.DATABASE_URL`.
 
+- [x] Complete TASK-021
+
 ---
 
 ### TASK-022 — Database generator: Postgres
@@ -356,6 +398,8 @@ Drizzle config pointing at `DATABASE_URL`. Schema stub with a `users` table. DB 
 Copies 3 Postgres templates. Merges `drizzle-orm`, `postgres`, `drizzle-kit` (dev) deps. Appends `DATABASE_URL` to `.env.example`.
 
 **Success:** Output contains all 3 files. `package.json` includes `drizzle-orm` and `postgres`. `.env.example` contains `DATABASE_URL`.
+
+- [x] Complete TASK-022
 
 ---
 
@@ -366,6 +410,8 @@ Drizzle config for SQLite. Client uses `better-sqlite3`. No env vars required.
 
 **Success:** Files exist. `db/index.ts` does not reference `process.env`.
 
+- [x] Complete TASK-023
+
 ---
 
 ### TASK-024 — Database generator: SQLite
@@ -374,6 +420,8 @@ Drizzle config for SQLite. Client uses `better-sqlite3`. No env vars required.
 Copies 3 SQLite templates. Merges `drizzle-orm`, `better-sqlite3`, `drizzle-kit` (dev) deps. Does not call `appendEnv`.
 
 **Success:** Output contains all 3 files. `package.json` includes `better-sqlite3`. No `.env.example` created.
+
+- [x] Complete TASK-024
 
 ---
 
@@ -384,6 +432,8 @@ Supabase JS client setup. Appends `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SU
 
 **Success:** Output contains `utils/supabase/client.ts`. `package.json` includes `@supabase/supabase-js`. When Supabase Auth generator has already run, client file is not overwritten and env vars are not duplicated.
 
+- [x] Complete TASK-025
+
 ---
 
 ### TASK-026 — Payments templates: Stripe
@@ -392,6 +442,8 @@ Supabase JS client setup. Appends `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SU
 Stripe client initialized from `STRIPE_SECRET_KEY`. Webhook handler stub with signature verification.
 
 **Success:** Files exist. `lib/stripe.ts` exports a `stripe` instance. Route handler exports a `POST` function.
+
+- [x] Complete TASK-026
 
 ---
 
@@ -402,6 +454,8 @@ Copies 2 Stripe templates. Merges `stripe` dep. Appends `STRIPE_SECRET_KEY` and 
 
 **Success:** Output contains both files. `package.json` includes `stripe`. `.env.example` contains both Stripe vars.
 
+- [x] Complete TASK-027
+
 ---
 
 ### TASK-028 — Payments templates: Lemon Squeezy
@@ -410,6 +464,8 @@ Copies 2 Stripe templates. Merges `stripe` dep. Appends `STRIPE_SECRET_KEY` and 
 Lemon Squeezy client and webhook handler stub.
 
 **Success:** Files exist. `lib/lemonsqueezy.ts` exports an initialized client. Route handler exports a `POST` function.
+
+- [x] Complete TASK-028
 
 ---
 
@@ -420,6 +476,8 @@ Copies 2 LS templates. Merges `@lemonsqueezy/lemonsqueezy.js` dep. Appends `LEMO
 
 **Success:** Output contains both files. `package.json` includes the dep. `.env.example` contains both vars.
 
+- [x] Complete TASK-029
+
 ---
 
 ### TASK-030 — Email generator: Resend
@@ -428,6 +486,8 @@ Copies 2 LS templates. Merges `@lemonsqueezy/lemonsqueezy.js` dep. Appends `LEMO
 `lib/email.ts` exports `sendEmail(to, subject, html)` using the Resend client. Merges `resend` dep. Appends `RESEND_API_KEY`.
 
 **Success:** Output contains `lib/email.ts` with a `sendEmail` export. `package.json` includes `resend`. `.env.example` contains `RESEND_API_KEY`. (3 files total — generator + template + test.)
+
+- [x] Complete TASK-030
 
 ---
 
@@ -438,6 +498,8 @@ Same contract as Resend. `sendEmail` uses Postmark client. Merges `postmark` dep
 
 **Success:** Output contains `lib/email.ts` with a `sendEmail` export. Shape is identical to Resend output. `.env.example` contains `POSTMARK_API_TOKEN`.
 
+- [x] Complete TASK-031
+
 ---
 
 ### TASK-032 — Generator orchestrator
@@ -446,6 +508,8 @@ Same contract as Resend. `sendEmail` uses Postmark client. Merges `postmark` dep
 Accepts `ProjectConfig`. Calls generators in order: base → auth → database → payments (if set) → email (if set). On any generator throw, removes `outDir` and rethrows.
 
 **Success:** Each sub-generator is called exactly once in the correct order (verified with vi.mock). On simulated failure in the third generator, `outDir` is removed and an error is thrown. Generators for null payments/email are not called.
+
+- [x] Complete TASK-032
 
 ---
 
@@ -456,6 +520,8 @@ Replace stub. Runs all prompts in sequence → assembles `ProjectConfig` → val
 
 **Success:** `node dist/index.js init` (with mocked prompts returning a complete config) produces an `outDir` containing `app/layout.tsx` and `package.json`. Zod validation error aborts before any files are written.
 
+- [x] Complete TASK-033
+
 ---
 
 ### TASK-034 — Integration test: full scaffold
@@ -465,6 +531,8 @@ Programmatically calls `generators/index.ts` with a representative set of config
 
 **Success:** All 9 combinations complete without throwing. Each output directory contains `app/layout.tsx`, `package.json`, and the expected auth + database files (enumerated per combo). File count per combo matches a defined constant. `.env.example` contains no duplicate lines.
 
+- [x] Complete TASK-034
+
 ---
 
 ### TASK-035 — README
@@ -473,3 +541,5 @@ Programmatically calls `generators/index.ts` with a representative set of config
 Document: install (`npm i -g saas-init` or `npx saas-init`), usage (`saas-init init`), supported stack options table, how to add a new provider (implement `generate(config, outDir)`, add templates, register in orchestrator).
 
 **Success:** README is accurate against implemented CLI. Install and usage commands work verbatim against the built artifact.
+
+- [x] Complete TASK-035
