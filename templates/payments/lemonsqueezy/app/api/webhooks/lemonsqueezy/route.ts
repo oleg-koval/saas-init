@@ -29,7 +29,12 @@ export async function POST(req: NextRequest) {
   } catch {
     return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 })
   }
-  const eventName: string = event?.meta?.event_name
+
+  if (!event?.meta?.event_name || typeof event.meta.event_name !== 'string') {
+    return NextResponse.json({ error: 'Invalid webhook payload structure' }, { status: 400 })
+  }
+
+  const eventName: string = event.meta.event_name
 
   switch (eventName) {
     case 'order_created': {

@@ -33,7 +33,14 @@ export async function initCommand(): Promise<void> {
   const spinner = p.spinner()
   spinner.start('Generating project files')
 
-  await generate(config)
+  try {
+    await generate(config)
+  } catch (error) {
+    spinner.stop('Generation failed')
+    const message = error instanceof Error ? error.message : String(error)
+    p.cancel(`Generation failed: ${message}`)
+    process.exit(1)
+  }
 
   spinner.stop('Files generated')
 

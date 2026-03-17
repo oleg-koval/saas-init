@@ -15,6 +15,9 @@ vi.mock('../../src/generators/payments/stripe.js', () => ({ generate: vi.fn() })
 vi.mock('../../src/generators/payments/lemonsqueezy.js', () => ({ generate: vi.fn() }))
 vi.mock('../../src/generators/email/resend.js', () => ({ generate: vi.fn() }))
 vi.mock('../../src/generators/email/postmark.js', () => ({ generate: vi.fn() }))
+vi.mock('../../src/generators/landing.js', () => ({ generate: vi.fn() }))
+vi.mock('../../src/generators/docker.js', () => ({ generate: vi.fn() }))
+vi.mock('../../src/generators/github.js', () => ({ generate: vi.fn() }))
 
 import { generate } from '../../src/generators/index.js'
 import { generate as baseGen } from '../../src/generators/base.js'
@@ -28,6 +31,9 @@ import { generate as stripeGen } from '../../src/generators/payments/stripe.js'
 import { generate as lemonsqueezyGen } from '../../src/generators/payments/lemonsqueezy.js'
 import { generate as resendGen } from '../../src/generators/email/resend.js'
 import { generate as postmarkGen } from '../../src/generators/email/postmark.js'
+import { generate as landingGen } from '../../src/generators/landing.js'
+import { generate as dockerGen } from '../../src/generators/docker.js'
+import { generate as githubGen } from '../../src/generators/github.js'
 import type { ProjectConfig } from '../../src/types.js'
 
 const baseConfig: ProjectConfig = {
@@ -56,6 +62,9 @@ describe('generator orchestrator', () => {
     ;(lemonsqueezyGen as ReturnType<typeof vi.fn>).mockResolvedValue(undefined)
     ;(resendGen as ReturnType<typeof vi.fn>).mockResolvedValue(undefined)
     ;(postmarkGen as ReturnType<typeof vi.fn>).mockResolvedValue(undefined)
+    ;(landingGen as ReturnType<typeof vi.fn>).mockResolvedValue(undefined)
+    ;(dockerGen as ReturnType<typeof vi.fn>).mockResolvedValue(undefined)
+    ;(githubGen as ReturnType<typeof vi.fn>).mockResolvedValue(undefined)
   })
 
   it('calls base generator first', async () => {
@@ -67,12 +76,15 @@ describe('generator orchestrator', () => {
   it('calls auth generators in correct order after base', async () => {
     const callOrder: string[] = []
     ;(baseGen as ReturnType<typeof vi.fn>).mockImplementation(async () => { callOrder.push('base') })
+    ;(landingGen as ReturnType<typeof vi.fn>).mockImplementation(async () => { callOrder.push('landing') })
     ;(clerkGen as ReturnType<typeof vi.fn>).mockImplementation(async () => { callOrder.push('clerk') })
     ;(postgresGen as ReturnType<typeof vi.fn>).mockImplementation(async () => { callOrder.push('postgres') })
+    ;(dockerGen as ReturnType<typeof vi.fn>).mockImplementation(async () => { callOrder.push('docker') })
+    ;(githubGen as ReturnType<typeof vi.fn>).mockImplementation(async () => { callOrder.push('github') })
 
     const config = { ...baseConfig, outDir }
     await generate(config)
-    expect(callOrder).toEqual(['base', 'clerk', 'postgres'])
+    expect(callOrder).toEqual(['base', 'landing', 'clerk', 'postgres', 'docker', 'github'])
   })
 
   it('calls nextauth generator when auth is nextauth', async () => {
@@ -160,15 +172,23 @@ describe('generator orchestrator', () => {
     }
     await generate(config)
     expect(baseGen).toHaveBeenCalledOnce()
+    expect(landingGen).toHaveBeenCalledOnce()
     expect(clerkGen).toHaveBeenCalledOnce()
     expect(postgresGen).toHaveBeenCalledOnce()
     expect(stripeGen).toHaveBeenCalledOnce()
     expect(resendGen).toHaveBeenCalledOnce()
+    expect(dockerGen).toHaveBeenCalledOnce()
+    expect(githubGen).toHaveBeenCalledOnce()
   })
 
   it('removes outDir and rethrows when a generator fails (dir did not exist before)', async () => {
     const callOrder: string[] = []
-    ;(baseGen as ReturnType<typeof vi.fn>).mockImplementation(async () => { callOrder.push('base') })
+    ;(baseGen as ReturnType<typeof vi.fn>).mockImplementation(async () => {
+      callOrder.push('base')
+      // Actually create outDir so cleanup can be meaningfully verified
+      await fs.ensureDir(outDir)
+      await fs.writeFile(path.join(outDir, 'package.json'), '{}')
+    })
     ;(clerkGen as ReturnType<typeof vi.fn>).mockImplementation(async () => { callOrder.push('clerk') })
     ;(postgresGen as ReturnType<typeof vi.fn>).mockImplementation(async () => {
       callOrder.push('postgres')
@@ -177,8 +197,6 @@ describe('generator orchestrator', () => {
 
     // outDir exists from beforeEach — remove it so dirExistedBefore is false
     await fs.remove(outDir)
-    // Recreate so the generator can actually try to use it (base mock just resolves)
-    // dirExistedBefore check happens before any generator runs, so we verify cleanup
     const config = { ...baseConfig, outDir }
 
     await expect(generate(config)).rejects.toThrow('postgres failed')
@@ -222,10 +240,13 @@ describe('generator orchestrator', () => {
     await generate(config)
 
     expect(baseGen).toHaveBeenCalledOnce()
+    expect(landingGen).toHaveBeenCalledOnce()
     expect(nextauthGen).toHaveBeenCalledOnce()
     expect(sqliteGen).toHaveBeenCalledOnce()
     expect(lemonsqueezyGen).toHaveBeenCalledOnce()
     expect(postmarkGen).toHaveBeenCalledOnce()
+    expect(dockerGen).toHaveBeenCalledOnce()
+    expect(githubGen).toHaveBeenCalledOnce()
 
     // Others not called
     expect(clerkGen).not.toHaveBeenCalled()

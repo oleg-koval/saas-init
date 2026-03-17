@@ -43,11 +43,12 @@ describe('base generator', () => {
     }
   })
 
-  it('creates postcss.config.mjs and lib/utils.ts', async () => {
+  it('creates postcss.config.mjs, lib/utils.ts, and components.json', async () => {
     await generate({ ...config, outDir: tmpDir }, tmpDir)
 
     expect(await fs.pathExists(path.join(tmpDir, 'postcss.config.mjs'))).toBe(true)
     expect(await fs.pathExists(path.join(tmpDir, 'lib/utils.ts'))).toBe(true)
+    expect(await fs.pathExists(path.join(tmpDir, 'components.json'))).toBe(true)
   })
 
   it('substitutes project name in package.json', async () => {

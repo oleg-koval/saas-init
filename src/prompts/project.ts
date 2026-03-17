@@ -35,7 +35,8 @@ export async function promptProject(): Promise<ProjectAnswers> {
     defaultValue: `./${name}`,
     validate: (value) => {
       const resolved = path.resolve(value || `./${name}`)
-      if (!resolved.startsWith(process.cwd() + path.sep)) {
+      const cwd = path.resolve(process.cwd())
+      if (!resolved.startsWith(cwd + path.sep) && resolved !== cwd) {
         return 'Output directory must be inside the current working directory'
       }
     },

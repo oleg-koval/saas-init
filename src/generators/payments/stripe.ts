@@ -34,7 +34,7 @@ export async function generate(config: ProjectConfig, outDir: string): Promise<v
 
   // Append Stripe env vars to .env.example
   await appendEnv(outDir, {
-    STRIPE_SECRET_KEY: 'sk_test_your_stripe_secret_key',
-    STRIPE_WEBHOOK_SECRET: 'whsec_your_webhook_secret',
+    STRIPE_SECRET_KEY: '[your-stripe-secret-key]',
+    STRIPE_WEBHOOK_SECRET: '[your-stripe-webhook-secret]',
   })
 }

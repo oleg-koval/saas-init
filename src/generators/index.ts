@@ -11,6 +11,9 @@ import { generate as generateStripe } from './payments/stripe.js'
 import { generate as generateLemonSqueezy } from './payments/lemonsqueezy.js'
 import { generate as generateResend } from './email/resend.js'
 import { generate as generatePostmark } from './email/postmark.js'
+import { generate as generateLanding } from './landing.js'
+import { generate as generateDocker } from './docker.js'
+import { generate as generateGithub } from './github.js'
 
 export async function generate(config: ProjectConfig): Promise<void> {
   const { outDir } = config
@@ -41,16 +44,38 @@ export async function generate(config: ProjectConfig): Promise<void> {
 
   try {
     await generateBase(config, outDir)
-    await authGenerators[config.auth](config, outDir)
-    await databaseGenerators[config.database](config, outDir)
+    await generateLanding(config, outDir)
+
+    const authGenerator = authGenerators[config.auth]
+    if (!authGenerator) {
+      throw new Error(`No generator found for auth provider: ${config.auth}`)
+    }
+    await authGenerator(config, outDir)
+
+    const databaseGenerator = databaseGenerators[config.database]
+    if (!databaseGenerator) {
+      throw new Error(`No generator found for database provider: ${config.database}`)
+    }
+    await databaseGenerator(config, outDir)
 
     if (config.payments !== null) {
-      await paymentsGenerators[config.payments](config, outDir)
+      const paymentsGenerator = paymentsGenerators[config.payments]
+      if (!paymentsGenerator) {
+        throw new Error(`No generator found for payments provider: ${config.payments}`)
+      }
+      await paymentsGenerator(config, outDir)
     }
 
     if (config.email !== null) {
-      await emailGenerators[config.email](config, outDir)
+      const emailGenerator = emailGenerators[config.email]
+      if (!emailGenerator) {
+        throw new Error(`No generator found for email provider: ${config.email}`)
+      }
+      await emailGenerator(config, outDir)
     }
+
+    await generateDocker(config, outDir)
+    await generateGithub(config, outDir)
   } catch (err) {
     if (!dirExistedBefore) {
       await fs.remove(outDir)

@@ -35,7 +35,7 @@ export async function generate(config: ProjectConfig, outDir: string): Promise<v
 
   // Append Clerk env vars to .env.example
   await appendEnv(outDir, {
-    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: 'pk_test_your_publishable_key',
-    CLERK_SECRET_KEY: 'sk_test_your_secret_key',
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: '[your-clerk-publishable-key]',
+    CLERK_SECRET_KEY: '[your-clerk-secret-key]',
   })
 }

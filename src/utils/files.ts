@@ -36,8 +36,9 @@ export async function appendEnv(
   const existingKeys = new Set(
     existing
       .split('\n')
-      .filter((line) => line.includes('='))
-      .map((line) => (line.split('=')[0] ?? '').trim())
+      .filter((line) => !line.trimStart().startsWith('#') && line.includes('='))
+      .map((line) => line.substring(0, line.indexOf('=')).trim())
+      .filter(Boolean)
   )
 
   const newLines = Object.entries(vars)
