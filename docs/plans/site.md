@@ -1,5 +1,6 @@
 # Plan: saas-init Landing Page Site
 
+**Status:** Complete
 **Target directory:** `~/projects/saas-init-site`
 **Source copy:** `~/projects/saas-init/LANDING_PAGE.md`
 **Validation:** `pnpm build` produces `out/` with no errors
@@ -110,11 +111,11 @@ components/
 
 ### Task 6 — Assemble page.tsx and final build validation
 
-- [ ] Wire all section components into app/page.tsx
-- [ ] Verify: no img tags, no dynamic APIs, all external links have target="_blank"
-- [ ] Verify: "use client" on components with useState, server components have no directive
-- [ ] Verify: next.config.ts has output: 'export' and images: { unoptimized: true }
-- [ ] Validate: pnpm build exits 0, out/index.html exists
+- [x] Wire all section components into app/page.tsx
+- [x] Verify: no img tags, no dynamic APIs, all external links have target="_blank"
+- [x] Verify: "use client" on components with useState, server components have no directive
+- [x] Verify: next.config.ts has output: 'export' and images: { unoptimized: true }
+- [x] Validate: pnpm build exits 0, out/index.html exists
 
 ---
 

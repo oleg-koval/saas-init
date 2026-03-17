@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach, afterEach } from 'vitest'
 import fs from 'fs-extra'
 import path from 'path'
 import os from 'os'
-import { writeTemplate, appendEnv, copyDir } from '../../src/utils/files.js'
+import { writeTemplate, appendEnv } from '../../src/utils/files.js'
 
 let tmpDir: string
 
@@ -59,23 +59,6 @@ describe('writeTemplate', () => {
   })
 })
 
-
-describe('copyDir', () => {
-  it('reproduces directory structure at destination', async () => {
-    const src = path.join(tmpDir, 'src')
-    await fs.ensureDir(path.join(src, 'nested'))
-    await fs.writeFile(path.join(src, 'a.txt'), 'hello')
-    await fs.writeFile(path.join(src, 'nested', 'b.txt'), 'world')
-
-    const dest = path.join(tmpDir, 'dest')
-    await copyDir(src, dest)
-
-    expect(await fs.pathExists(path.join(dest, 'a.txt'))).toBe(true)
-    expect(await fs.pathExists(path.join(dest, 'nested', 'b.txt'))).toBe(true)
-    expect(await fs.readFile(path.join(dest, 'a.txt'), 'utf-8')).toBe('hello')
-    expect(await fs.readFile(path.join(dest, 'nested', 'b.txt'), 'utf-8')).toBe('world')
-  })
-})
 
 describe('appendEnv', () => {
   it('creates .env.example if it does not exist', async () => {

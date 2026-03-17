@@ -13,15 +13,6 @@ export async function writeTemplate(
   await fs.writeFile(destPath, substituted, 'utf-8')
 }
 
-
-export async function copyDir(src: string, dest: string): Promise<void> {
-  await fs.copy(src, dest)
-}
-
-export async function ensureDir(dirPath: string): Promise<void> {
-  await fs.ensureDir(dirPath)
-}
-
 export async function appendEnv(
   destPath: string,
   vars: Record<string, string>
