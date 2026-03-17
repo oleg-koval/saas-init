@@ -74,11 +74,11 @@ components/
 
 ### Task 2 — Root layout, global styles, metadata
 
-- [ ] Wire Geist Sans + Geist Mono fonts via next/font
-- [ ] Set metadata (title, description, OpenGraph, Twitter)
-- [ ] Define design tokens in globals.css using Tailwind v4 @theme
-- [ ] Create SectionWrapper component
-- [ ] Validate: pnpm build exits 0
+- [x] Wire Geist Sans + Geist Mono fonts via next/font
+- [x] Set metadata (title, description, OpenGraph, Twitter)
+- [x] Define design tokens in globals.css using Tailwind v4 @theme
+- [x] Create SectionWrapper component
+- [x] Validate: pnpm build exits 0
 
 ---
 
