@@ -101,10 +101,10 @@ components/
 
 ### Task 5 — Transformation, SecondaryCTA, Footer sections
 
-- [ ] Create Transformation section with 4-stage vertical timeline
-- [ ] Create SecondaryCTA section with avatar stack and CTA button
-- [ ] Create Footer with logo, nav links, social icons, legal
-- [ ] Validate: pnpm build exits 0
+- [x] Create Transformation section with 4-stage vertical timeline
+- [x] Create SecondaryCTA section with avatar stack and CTA button
+- [x] Create Footer with logo, nav links, social icons, legal
+- [x] Validate: pnpm build exits 0
 
 ---
 
