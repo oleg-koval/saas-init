@@ -1,3 +1,10 @@
+## [1.0.11](https://github.com/oleg-koval/saas-init/compare/v1.0.10...v1.0.11) (2026-03-18)
+
+
+### Bug Fixes
+
+* correct GitHub URLs to use oleg-koval username ([d60bee4](https://github.com/oleg-koval/saas-init/commit/d60bee4e3f3fab46f6d66a99786728badb707573))
+
 ## [1.0.10](https://github.com/oleg-koval/saas-init/compare/v1.0.9...v1.0.10) (2026-03-18)
 
 
