@@ -11,7 +11,7 @@ export default function Transformation() {
             <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-1">Day 1</div>
             <h3 className="text-lg font-semibold mb-2">Quick Win</h3>
             <p className="text-sm text-muted-foreground">
-              You get your first win immediately. Setup takes minutes, results come the same day.
+              {{stage1Body}}
             </p>
           </div>
           <div className="hidden md:flex items-center self-center text-muted-foreground text-2xl">→</div>
@@ -20,7 +20,7 @@ export default function Transformation() {
             <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-1">Week 1</div>
             <h3 className="text-lg font-semibold mb-2">Compound</h3>
             <p className="text-sm text-muted-foreground">
-              Each day builds on the last. Your results compound and momentum grows steadily.
+              {{stage2Body}}
             </p>
           </div>
           <div className="hidden md:flex items-center self-center text-muted-foreground text-2xl">→</div>
@@ -29,7 +29,7 @@ export default function Transformation() {
             <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-1">Month 1</div>
             <h3 className="text-lg font-semibold mb-2">Advantage</h3>
             <p className="text-sm text-muted-foreground">
-              You now have a clear competitive advantage. The gap between you and others widens.
+              {{stage3Body}}
             </p>
           </div>
           <div className="hidden md:flex items-center self-center text-muted-foreground text-2xl">→</div>
@@ -38,7 +38,7 @@ export default function Transformation() {
             <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-1">Month 3+</div>
             <h3 className="text-lg font-semibold mb-2">10x</h3>
             <p className="text-sm text-muted-foreground">
-              You are operating at 10x your previous capacity. Results that used to take months happen in days.
+              {{stage4Body}}
             </p>
           </div>
         </div>

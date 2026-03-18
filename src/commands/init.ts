@@ -50,11 +50,13 @@ export async function initCommand(): Promise<void> {
     const installSpinner = p.spinner()
     installSpinner.start('Installing dependencies')
     try {
-      execSync('pnpm install', { cwd: outDir, stdio: 'ignore' })
+      execSync('pnpm install', { cwd: outDir, stdio: 'inherit' })
       installSpinner.stop('Dependencies installed')
-    } catch {
+    } catch (error) {
       installSpinner.stop('Failed to install dependencies')
-      p.log.warn('Run `pnpm install` manually to install dependencies')
+      const message = error instanceof Error ? error.message : String(error)
+      p.log.error(`pnpm install failed: ${message}`)
+      p.log.warn('Run `pnpm install` manually in your project directory to install dependencies')
     }
   }
 

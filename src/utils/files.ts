@@ -7,10 +7,15 @@ export async function writeTemplate(
   destPath: string,
   vars: Record<string, string>
 ): Promise<void> {
-  const content = await fs.readFile(templatePath, 'utf-8')
-  const substituted = replaceVars(content, vars)
-  await fs.ensureDir(path.dirname(destPath))
-  await fs.writeFile(destPath, substituted, 'utf-8')
+  try {
+    const content = await fs.readFile(templatePath, 'utf-8')
+    const substituted = replaceVars(content, vars)
+    await fs.ensureDir(path.dirname(destPath))
+    await fs.writeFile(destPath, substituted, 'utf-8')
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error)
+    throw new Error(`Failed to write template from ${templatePath} to ${destPath}: ${message}`)
+  }
 }
 
 export async function appendEnv(

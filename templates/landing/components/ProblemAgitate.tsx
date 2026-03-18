@@ -8,23 +8,23 @@ export default function ProblemAgitate() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="problem-card p-6 rounded-lg bg-background border">
             <span className="text-2xl mb-3 block">▸</span>
-            <p className="font-bold mb-2">Wasted time on setup</p>
+            <p className="font-bold mb-2">{{problem1Title}}</p>
             <p className="text-sm text-muted-foreground">
-              Every new project means hours of boilerplate — auth, payments, emails — before you can build the actual thing.
+              {{problem1Body}}
             </p>
           </div>
           <div className="problem-card p-6 rounded-lg bg-background border">
             <span className="text-2xl mb-3 block">▸</span>
-            <p className="font-bold mb-2">Inconsistent foundations</p>
+            <p className="font-bold mb-2">{{problem2Title}}</p>
             <p className="text-sm text-muted-foreground">
-              Without a standard stack, every project diverges, making maintenance and onboarding harder than it should be.
+              {{problem2Body}}
             </p>
           </div>
           <div className="problem-card p-6 rounded-lg bg-background border">
             <span className="text-2xl mb-3 block">▸</span>
-            <p className="font-bold mb-2">Slow time to first user</p>
+            <p className="font-bold mb-2">{{problem3Title}}</p>
             <p className="text-sm text-muted-foreground">
-              The longer it takes to get live, the longer you wait for real feedback — and the more runway you burn.
+              {{problem3Body}}
             </p>
           </div>
         </div>

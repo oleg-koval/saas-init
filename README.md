@@ -32,6 +32,14 @@ The CLI walks you through a short prompt sequence:
 
 After confirming, saas-init generates the project files and optionally runs `pnpm install` in the output directory.
 
+## What's Included
+
+Every generated project comes with:
+
+- **Landing Page**: Production-ready landing page with multiple sections (hero, problem agitate, value proposition, social proof, transformation, CTA, footer). Fully customizable via template variables.
+- **Docker**: Pre-configured `Dockerfile` and `docker-compose.yml` for easy containerization.
+- **GitHub Actions**: Automated CI workflow for testing and linting on every push and PR.
+
 ## Supported Stack Options
 
 | Category  | Options                             |

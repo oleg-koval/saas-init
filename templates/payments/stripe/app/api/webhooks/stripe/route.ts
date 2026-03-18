@@ -26,19 +26,20 @@ export async function POST(req: NextRequest) {
   switch (event.type) {
     case 'checkout.session.completed': {
       const session = event.data.object as Stripe.Checkout.Session
-      // TODO: handle successful checkout
-      console.log('Checkout session completed:', session.id)
+      // TODO: Update user subscription status and handle successful checkout
+      // Example: await db.users.update(session.client_reference_id, { subscriptionActive: true })
       break
     }
     case 'customer.subscription.updated':
     case 'customer.subscription.deleted': {
       const subscription = event.data.object as Stripe.Subscription
-      // TODO: handle subscription changes
-      console.log('Subscription event:', event.type, subscription.id)
+      // TODO: Update user subscription status based on subscription state
+      // Example: await db.users.update(subscription.metadata.userId, { subscriptionActive: subscription.status === 'active' })
       break
     }
     default:
-      console.log('Unhandled event type:', event.type)
+      // Silently ignore unhandled event types
+      break
   }
 
   return NextResponse.json({ received: true })

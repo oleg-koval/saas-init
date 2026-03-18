@@ -6,7 +6,7 @@ const program = new Command()
 program
   .name('saas-init')
   .description('CLI scaffolding tool for production-ready SaaS projects')
-  .version('0.1.0')
+  .version('1.0.0')
 
 program
   .command('init')

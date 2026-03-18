@@ -9,31 +9,31 @@ export default function SocialProof() {
           <div className="p-6 rounded-lg bg-background border flex flex-col gap-4">
             <div className="w-10 h-10 rounded-full bg-muted" />
             <blockquote className="text-sm text-muted-foreground italic">
-              &ldquo;This saved us weeks of setup time. We shipped our first paying customer in under 48 hours.&rdquo;
+              &ldquo;{{testimonial1Quote}}&rdquo;
             </blockquote>
             <div>
-              <p className="font-semibold text-sm">Alex Johnson</p>
-              <p className="text-xs text-muted-foreground">Founder, Acme Corp</p>
+              <p className="font-semibold text-sm">{{testimonial1Name}}</p>
+              <p className="text-xs text-muted-foreground">{{testimonial1Role}}</p>
             </div>
           </div>
           <div className="p-6 rounded-lg bg-background border flex flex-col gap-4">
             <div className="w-10 h-10 rounded-full bg-muted" />
             <blockquote className="text-sm text-muted-foreground italic">
-              &ldquo;The best investment I made this year. Auth, payments, and emails all working out of the box.&rdquo;
+              &ldquo;{{testimonial2Quote}}&rdquo;
             </blockquote>
             <div>
-              <p className="font-semibold text-sm">Sarah Chen</p>
-              <p className="text-xs text-muted-foreground">CTO, Startup Inc</p>
+              <p className="font-semibold text-sm">{{testimonial2Name}}</p>
+              <p className="text-xs text-muted-foreground">{{testimonial2Role}}</p>
             </div>
           </div>
           <div className="p-6 rounded-lg bg-background border flex flex-col gap-4">
             <div className="w-10 h-10 rounded-full bg-muted" />
             <blockquote className="text-sm text-muted-foreground italic">
-              &ldquo;I&apos;ve tried every boilerplate out there. This one actually ships production-ready code.&rdquo;
+              &ldquo;{{testimonial3Quote}}&rdquo;
             </blockquote>
             <div>
-              <p className="font-semibold text-sm">Marcus Williams</p>
-              <p className="text-xs text-muted-foreground">Indie Hacker</p>
+              <p className="font-semibold text-sm">{{testimonial3Name}}</p>
+              <p className="text-xs text-muted-foreground">{{testimonial3Role}}</p>
             </div>
           </div>
         </div>

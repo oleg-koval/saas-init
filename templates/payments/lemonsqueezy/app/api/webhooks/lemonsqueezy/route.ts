@@ -38,19 +38,20 @@ export async function POST(req: NextRequest) {
 
   switch (eventName) {
     case 'order_created': {
-      // TODO: handle new order
-      console.log('Order created:', event?.data?.id)
+      // TODO: Record purchase in database and trigger post-purchase workflow
+      // Example: await db.orders.create({ customerId: event.data.customer_id, amount: event.data.total })
       break
     }
     case 'subscription_created':
     case 'subscription_updated':
     case 'subscription_cancelled': {
-      // TODO: handle subscription events
-      console.log('Subscription event:', eventName, event?.data?.id)
+      // TODO: Update user subscription status in database
+      // Example: await db.users.update(subscription.customerId, { subscriptionStatus: eventName })
       break
     }
     default:
-      console.log('Unhandled event type:', eventName)
+      // Silently ignore unhandled event types
+      break
   }
 
   return NextResponse.json({ received: true })

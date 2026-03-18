@@ -18,6 +18,18 @@ import { generate as generateGithub } from './github.js'
 export async function generate(config: ProjectConfig): Promise<void> {
   const { outDir } = config
 
+  const dirExistedBefore = await fs.pathExists(outDir)
+
+  // Verify output directory is writable
+  try {
+    await fs.ensureDir(outDir)
+    const testFile = '.writability-check'
+    await fs.writeFile(`${outDir}/${testFile}`, '')
+    await fs.remove(`${outDir}/${testFile}`)
+  } catch {
+    throw new Error(`Output directory "${outDir}" is not writable or cannot be created. Check permissions and try again.`)
+  }
+
   const authGenerators = {
     clerk: generateClerk,
     nextauth: generateNextAuth,
@@ -39,8 +51,6 @@ export async function generate(config: ProjectConfig): Promise<void> {
     resend: generateResend,
     postmark: generatePostmark,
   }
-
-  const dirExistedBefore = await fs.pathExists(outDir)
 
   try {
     await generateBase(config, outDir)

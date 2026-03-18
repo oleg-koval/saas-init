@@ -34,7 +34,7 @@ export async function generate(config: ProjectConfig, outDir: string): Promise<v
 
   // Append Lemon Squeezy env vars to .env.example
   await appendEnv(outDir, {
-    LEMONSQUEEZY_API_KEY: 'your_lemonsqueezy_api_key',
-    LEMONSQUEEZY_WEBHOOK_SECRET: 'your_webhook_secret',
+    LEMONSQUEEZY_API_KEY: 'CHANGE_ME_lemonsqueezy_api_key',
+    LEMONSQUEEZY_WEBHOOK_SECRET: 'CHANGE_ME_webhook_secret',
   })
 }

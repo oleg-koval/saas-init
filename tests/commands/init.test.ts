@@ -115,7 +115,7 @@ describe('initCommand', () => {
 
     await initCommand()
 
-    expect(execSync).toHaveBeenCalledWith('pnpm install', { cwd: outDir, stdio: 'ignore' })
+    expect(execSync).toHaveBeenCalledWith('pnpm install', { cwd: outDir, stdio: 'inherit' })
   })
 
   it('does not run install when confirm is cancelled', async () => {
@@ -149,7 +149,7 @@ describe('initCommand', () => {
 
     // Should not throw — the catch block handles the error
     await expect(initCommand()).resolves.toBeUndefined()
-    expect(clack.log.warn).toHaveBeenCalledWith('Run `pnpm install` manually to install dependencies')
+    expect(clack.log.warn).toHaveBeenCalledWith('Run `pnpm install` manually in your project directory to install dependencies')
   })
 
   it('passes full config with payments and email to generate', async () => {

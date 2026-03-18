@@ -8,8 +8,8 @@ export type ProjectAnswers = {
 
 function isValidNpmName(value: string): true | string {
   if (!value) return 'Project name is required'
-  if (!/^[a-z0-9]([a-z0-9-]*[a-z0-9])?$/.test(value)) {
-    return 'Name must be lowercase, start and end with a letter or digit, and contain only letters, digits, and hyphens'
+  if (!/^[a-z0-9]([a-z0-9-]*[a-z0-9])?$/.test(value) && !/^[a-z0-9]$/.test(value)) {
+    return 'Name must be lowercase, contain only letters, digits, and hyphens'
   }
   return true
 }

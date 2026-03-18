@@ -1,7 +1,7 @@
 {
   "name": "saas-init",
-  "version": "0.1.0",
-  "description": "CLI scaffolding tool that generates production-ready SaaS projects",
+  "version": "1.0.0",
+  "description": "CLI scaffolding tool that generates production-ready SaaS projects with Next.js, auth, payments, database, and email — configured and ready to ship.",
   "type": "module",
   "bin": {
     "saas-init": "./dist/index.js"
@@ -36,6 +36,31 @@
     "tsup": "^8.3.0",
     "typescript": "^5.6.3",
     "vitest": "^2.1.8"
+  },
+  "keywords": [
+    "saas",
+    "scaffold",
+    "cli",
+    "nextjs",
+    "starter",
+    "boilerplate",
+    "clerk",
+    "nextauth",
+    "supabase",
+    "stripe",
+    "drizzle",
+    "tailwind",
+    "shadcn"
+  ],
+  "author": "Oleg Koval",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/olegkoval/saas-init.git"
+  },
+  "homepage": "https://github.com/olegkoval/saas-init#readme",
+  "bugs": {
+    "url": "https://github.com/olegkoval/saas-init/issues"
   },
   "engines": {
     "node": ">=18"
