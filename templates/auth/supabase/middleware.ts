@@ -42,7 +42,14 @@ export async function updateSession(request: NextRequest) {
 }
 
 export default async function middleware(request: NextRequest) {
-  return await updateSession(request)
+  try {
+    return await updateSession(request)
+  } catch (error) {
+    // Return 500 error response instead of throwing to avoid middleware crash
+    return new NextResponse('Internal Server Error: Missing Supabase configuration', {
+      status: 500,
+    })
+  }
 }
 
 export const config = {
