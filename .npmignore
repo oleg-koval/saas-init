@@ -1,0 +1,23 @@
+# Source
+src/
+
+# Tests
+tests/
+
+# Docs and plans
+docs/
+
+# Dev config
+tsup.config.ts
+tsconfig.json
+eslint.config.js
+.prettierrc
+.eslintignore
+vitest.config.*
+
+# Misc
+.pi/
+*.log
+*.tgz
+
+~

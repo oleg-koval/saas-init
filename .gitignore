@@ -1,7 +1,12 @@
 
 # ralphex progress logs
 .ralphex/progress/
+.ralphex/
 
 # Build and dependencies
 dist/
 node_modules/
+
+.fastembed_cache/
+
+~/
