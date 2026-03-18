@@ -1,6 +1,6 @@
 {
   "name": "saas-init",
-  "version": "1.0.0",
+  "version": "1.0.10",
   "description": "CLI scaffolding tool that generates production-ready SaaS projects with Next.js, auth, payments, database, and email — configured and ready to ship.",
   "type": "module",
   "bin": {
