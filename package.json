@@ -63,11 +63,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/olegkoval/saas-init.git"
+    "url": "https://github.com/oleg-koval/saas-init.git"
   },
-  "homepage": "https://github.com/olegkoval/saas-init#readme",
+  "homepage": "https://github.com/oleg-koval/saas-init#readme",
   "bugs": {
-    "url": "https://github.com/olegkoval/saas-init/issues"
+    "url": "https://github.com/oleg-koval/saas-init/issues"
   },
   "engines": {
     "node": ">=18"
