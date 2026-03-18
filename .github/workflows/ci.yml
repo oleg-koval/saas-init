@@ -29,6 +29,17 @@ jobs:
       - name: Test
         run: pnpm test
 
+  docs-index:
+    name: Docs index
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Check docs index is up to date
+        run: npx --yes docs-index-keeper check
+
   anti-slop:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
