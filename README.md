@@ -1,5 +1,11 @@
 # saas-init
 
+[![npm version](https://img.shields.io/npm/v/saas-init?color=blue)](https://www.npmjs.com/package/saas-init)
+[![npm downloads](https://img.shields.io/npm/dm/saas-init)](https://www.npmjs.com/package/saas-init)
+[![CI](https://github.com/oleg-koval/saas-init/actions/workflows/ci.yml/badge.svg)](https://github.com/oleg-koval/saas-init/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node.js >= 18](https://img.shields.io/node/v/saas-init)](https://nodejs.org)
+
 CLI scaffolding tool that generates production-ready SaaS projects on top of Next.js.
 
 ## Install
