@@ -7,7 +7,9 @@ import { promptDatabase } from '../prompts/database.js'
 import { promptPayments } from '../prompts/payments.js'
 import { promptEmail } from '../prompts/email.js'
 import { promptSummary } from '../prompts/summary.js'
+import { promptEnvVars } from '../prompts/env-vars.js'
 import { generate } from '../generators/index.js'
+import { writeEnvLocal } from '../utils/files.js'
 
 export async function initCommand(): Promise<void> {
   p.intro('saas-init')
@@ -30,6 +32,8 @@ export async function initCommand(): Promise<void> {
 
   await promptSummary(config)
 
+  const envVars = await promptEnvVars(config)
+
   const spinner = p.spinner()
   spinner.start('Generating project files')
 
@@ -42,6 +46,7 @@ export async function initCommand(): Promise<void> {
     process.exit(1)
   }
 
+  await writeEnvLocal(config.outDir, envVars)
   spinner.stop('Files generated')
 
   const install = await p.confirm({ message: 'Install dependencies now?' })
