@@ -10,6 +10,7 @@ let tmpDir: string
 const config: ProjectConfig = {
   name: 'my-app',
   outDir: '',
+  nextVersion: '16',
   auth: 'clerk',
   database: 'postgres',
   payments: null,
@@ -65,6 +66,20 @@ describe('base generator', () => {
     const pkgContent = await fs.readFile(path.join(tmpDir, 'package.json'), 'utf-8')
     const pkg = JSON.parse(pkgContent)
     expect(pkg.dependencies).toHaveProperty('next')
+  })
+
+  it('sets next version to ^16.2.0 when nextVersion is 16', async () => {
+    await generate({ ...config, nextVersion: '16', outDir: tmpDir }, tmpDir)
+
+    const pkg = JSON.parse(await fs.readFile(path.join(tmpDir, 'package.json'), 'utf-8'))
+    expect(pkg.dependencies.next).toBe('^16.2.0')
+  })
+
+  it('sets next version to ^15.3.0 when nextVersion is 15', async () => {
+    await generate({ ...config, nextVersion: '15', outDir: tmpDir }, tmpDir)
+
+    const pkg = JSON.parse(await fs.readFile(path.join(tmpDir, 'package.json'), 'utf-8'))
+    expect(pkg.dependencies.next).toBe('^15.3.0')
   })
 
   it('includes tailwindcss in devDependencies and clsx in dependencies', async () => {

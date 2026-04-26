@@ -6,6 +6,7 @@ import { promptAuth } from '../prompts/auth.js'
 import { promptDatabase } from '../prompts/database.js'
 import { promptPayments } from '../prompts/payments.js'
 import { promptEmail } from '../prompts/email.js'
+import { promptNextVersion } from '../prompts/next-version.js'
 import { promptSummary } from '../prompts/summary.js'
 import { promptEnvVars } from '../prompts/env-vars.js'
 import { generate } from '../generators/index.js'
@@ -15,12 +16,13 @@ export async function initCommand(): Promise<void> {
   p.intro('saas-init')
 
   const { name, outDir } = await promptProject()
+  const { nextVersion } = await promptNextVersion()
   const { auth } = await promptAuth()
   const { database } = await promptDatabase()
   const { payments } = await promptPayments()
   const { email } = await promptEmail()
 
-  const rawConfig = { name, outDir, auth, database, payments, email }
+  const rawConfig = { name, outDir, nextVersion, auth, database, payments, email }
 
   const parsed = projectConfigSchema.safeParse(rawConfig)
   if (!parsed.success) {

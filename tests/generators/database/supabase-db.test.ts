@@ -12,6 +12,7 @@ let tmpDir: string
 const config: ProjectConfig = {
   name: 'my-app',
   outDir: '',
+  nextVersion: '16',
   auth: 'clerk',
   database: 'supabase',
   payments: null,

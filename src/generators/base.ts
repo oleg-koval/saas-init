@@ -7,8 +7,13 @@ import type { ProjectConfig } from '../types.js'
 
 const TEMPLATES_DIR = path.join(TEMPLATES_ROOT, 'base')
 
+const NEXT_VERSION_MAP: Record<string, string> = {
+  '15': '^15.3.0',
+  '16': '^16.2.0',
+}
+
 export async function generate(config: ProjectConfig, outDir: string): Promise<void> {
-  const vars = { name: config.name }
+  const vars = { name: config.name, nextVersion: NEXT_VERSION_MAP[config.nextVersion] }
 
   const files: [string, string][] = [
     ['app/layout.tsx', 'app/layout.tsx'],
