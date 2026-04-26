@@ -15,6 +15,7 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "test": "vitest run",
+    "test:e2e": "vitest run tests/e2e",
     "test:watch": "vitest",
     "lint": "eslint src tests",
     "format": "prettier --write .",
