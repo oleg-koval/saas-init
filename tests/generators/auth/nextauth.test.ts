@@ -11,6 +11,7 @@ let tmpDir: string
 const config: ProjectConfig = {
   name: 'my-app',
   outDir: '',
+  nextVersion: '16',
   auth: 'nextauth',
   database: 'postgres',
   payments: null,

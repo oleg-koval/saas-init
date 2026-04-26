@@ -11,16 +11,18 @@ vi.mock('@clack/prompts', () => ({
   confirm: vi.fn(),
   cancel: vi.fn(),
   isCancel: vi.fn(() => false),
-  log: { warn: vi.fn(), info: vi.fn(), error: vi.fn() },
+  log: { warn: vi.fn(), info: vi.fn(), error: vi.fn(), message: vi.fn() },
 }))
 
 // Mock prompt modules
 vi.mock('../../src/prompts/project.js', () => ({ promptProject: vi.fn() }))
+vi.mock('../../src/prompts/next-version.js', () => ({ promptNextVersion: vi.fn() }))
 vi.mock('../../src/prompts/auth.js', () => ({ promptAuth: vi.fn() }))
 vi.mock('../../src/prompts/database.js', () => ({ promptDatabase: vi.fn() }))
 vi.mock('../../src/prompts/payments.js', () => ({ promptPayments: vi.fn() }))
 vi.mock('../../src/prompts/email.js', () => ({ promptEmail: vi.fn() }))
 vi.mock('../../src/prompts/summary.js', () => ({ promptSummary: vi.fn() }))
+vi.mock('../../src/prompts/env-vars.js', () => ({ promptEnvVars: vi.fn() }))
 
 // Mock generator orchestrator
 vi.mock('../../src/generators/index.js', () => ({ generate: vi.fn() }))
@@ -30,11 +32,13 @@ vi.mock('child_process', () => ({ execSync: vi.fn() }))
 
 import * as clack from '@clack/prompts'
 import { promptProject } from '../../src/prompts/project.js'
+import { promptNextVersion } from '../../src/prompts/next-version.js'
 import { promptAuth } from '../../src/prompts/auth.js'
 import { promptDatabase } from '../../src/prompts/database.js'
 import { promptPayments } from '../../src/prompts/payments.js'
 import { promptEmail } from '../../src/prompts/email.js'
 import { promptSummary } from '../../src/prompts/summary.js'
+import { promptEnvVars } from '../../src/prompts/env-vars.js'
 import { generate } from '../../src/generators/index.js'
 import { execSync } from 'child_process'
 import { initCommand } from '../../src/commands/init.js'
@@ -48,11 +52,13 @@ describe('initCommand', () => {
 
     // Default mock implementations
     ;(promptProject as ReturnType<typeof vi.fn>).mockResolvedValue({ name: 'my-app', outDir })
+    ;(promptNextVersion as ReturnType<typeof vi.fn>).mockResolvedValue({ nextVersion: '16' })
     ;(promptAuth as ReturnType<typeof vi.fn>).mockResolvedValue({ auth: 'clerk' })
     ;(promptDatabase as ReturnType<typeof vi.fn>).mockResolvedValue({ database: 'postgres' })
     ;(promptPayments as ReturnType<typeof vi.fn>).mockResolvedValue({ payments: null })
     ;(promptEmail as ReturnType<typeof vi.fn>).mockResolvedValue({ email: null })
     ;(promptSummary as ReturnType<typeof vi.fn>).mockResolvedValue(undefined)
+    ;(promptEnvVars as ReturnType<typeof vi.fn>).mockResolvedValue({})
     ;(generate as ReturnType<typeof vi.fn>).mockResolvedValue(undefined)
     ;(clack.confirm as ReturnType<typeof vi.fn>).mockResolvedValue(false)
     ;(clack.isCancel as ReturnType<typeof vi.fn>).mockReturnValue(false)
@@ -63,6 +69,10 @@ describe('initCommand', () => {
     ;(promptProject as ReturnType<typeof vi.fn>).mockImplementation(async () => {
       callOrder.push('project')
       return { name: 'my-app', outDir }
+    })
+    ;(promptNextVersion as ReturnType<typeof vi.fn>).mockImplementation(async () => {
+      callOrder.push('next-version')
+      return { nextVersion: '16' }
     })
     ;(promptAuth as ReturnType<typeof vi.fn>).mockImplementation(async () => {
       callOrder.push('auth')
@@ -86,7 +96,7 @@ describe('initCommand', () => {
 
     await initCommand()
 
-    expect(callOrder).toEqual(['project', 'auth', 'database', 'payments', 'email', 'summary'])
+    expect(callOrder).toEqual(['project', 'next-version', 'auth', 'database', 'payments', 'email', 'summary'])
   })
 
   it('calls generate with assembled ProjectConfig', async () => {
@@ -95,6 +105,7 @@ describe('initCommand', () => {
     expect(generate).toHaveBeenCalledWith({
       name: 'my-app',
       outDir,
+      nextVersion: '16',
       auth: 'clerk',
       database: 'postgres',
       payments: null,
@@ -161,6 +172,7 @@ describe('initCommand', () => {
     expect(generate).toHaveBeenCalledWith({
       name: 'my-app',
       outDir,
+      nextVersion: '16',
       auth: 'clerk',
       database: 'postgres',
       payments: 'stripe',

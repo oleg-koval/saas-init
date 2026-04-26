@@ -39,6 +39,7 @@ import type { ProjectConfig } from '../../src/types.js'
 const baseConfig: ProjectConfig = {
   name: 'test-app',
   outDir: '',
+  nextVersion: '16',
   auth: 'clerk',
   database: 'postgres',
   payments: null,
@@ -165,6 +166,7 @@ describe('generator orchestrator', () => {
     const config: ProjectConfig = {
       name: 'full-app',
       outDir,
+      nextVersion: '16',
       auth: 'clerk',
       database: 'postgres',
       payments: 'stripe',
@@ -232,6 +234,7 @@ describe('generator orchestrator', () => {
     const config: ProjectConfig = {
       name: 'my-app',
       outDir,
+      nextVersion: '16',
       auth: 'nextauth',
       database: 'sqlite',
       payments: 'lemonsqueezy',

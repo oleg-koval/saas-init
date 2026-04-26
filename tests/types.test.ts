@@ -4,6 +4,7 @@ import { projectConfigSchema } from '../src/types'
 const validConfig = {
   name: 'my-app',
   outDir: './my-app',
+  nextVersion: '16',
   auth: 'clerk',
   database: 'postgres',
   payments: 'stripe',
@@ -44,6 +45,21 @@ describe('projectConfigSchema', () => {
   it('rejects a missing name field', () => {
     const { name: _name, ...withoutName } = validConfig
     const result = projectConfigSchema.safeParse(withoutName)
+    expect(result.success).toBe(false)
+  })
+
+  it('accepts nextVersion 15', () => {
+    const result = projectConfigSchema.safeParse({ ...validConfig, nextVersion: '15' })
+    expect(result.success).toBe(true)
+  })
+
+  it('accepts nextVersion 16', () => {
+    const result = projectConfigSchema.safeParse({ ...validConfig, nextVersion: '16' })
+    expect(result.success).toBe(true)
+  })
+
+  it('rejects an unknown nextVersion', () => {
+    const result = projectConfigSchema.safeParse({ ...validConfig, nextVersion: '14' })
     expect(result.success).toBe(false)
   })
 })
