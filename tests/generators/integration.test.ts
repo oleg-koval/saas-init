@@ -98,6 +98,7 @@ describe('integration: full scaffold', () => {
         const config: ProjectConfig = {
           name: 'test-app',
           outDir,
+          nextVersion: '16',
           auth,
           database: db,
           payments: null,
@@ -112,6 +113,7 @@ describe('integration: full scaffold', () => {
         const config: ProjectConfig = {
           name: 'test-app',
           outDir,
+          nextVersion: '16',
           auth,
           database: db,
           payments: null,
@@ -128,6 +130,7 @@ describe('integration: full scaffold', () => {
         const config: ProjectConfig = {
           name: 'test-app',
           outDir,
+          nextVersion: '16',
           auth,
           database: db,
           payments: null,
@@ -145,6 +148,7 @@ describe('integration: full scaffold', () => {
         const config: ProjectConfig = {
           name: 'test-app',
           outDir,
+          nextVersion: '16',
           auth,
           database: db,
           payments: null,
@@ -162,6 +166,7 @@ describe('integration: full scaffold', () => {
         const config: ProjectConfig = {
           name: 'test-app',
           outDir,
+          nextVersion: '16',
           auth,
           database: db,
           payments: null,
@@ -179,6 +184,7 @@ describe('integration: full scaffold', () => {
         const config: ProjectConfig = {
           name: 'test-app',
           outDir,
+          nextVersion: '16',
           auth,
           database: db,
           payments: null,
@@ -195,6 +201,7 @@ describe('integration: full scaffold', () => {
         const config: ProjectConfig = {
           name: 'test-app',
           outDir,
+          nextVersion: '16',
           auth,
           database: db,
           payments: null,

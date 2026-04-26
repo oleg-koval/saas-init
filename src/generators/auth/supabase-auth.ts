@@ -38,5 +38,6 @@ export async function generate(config: ProjectConfig, outDir: string): Promise<v
   await appendEnv(outDir, {
     NEXT_PUBLIC_SUPABASE_URL: 'https://your-project.supabase.co',
     NEXT_PUBLIC_SUPABASE_ANON_KEY: 'your_supabase_anon_key',
+    SUPABASE_SERVICE_ROLE_KEY: 'your_supabase_service_role_key',
   })
 }

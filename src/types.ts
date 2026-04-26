@@ -4,10 +4,12 @@ export type AuthProvider = 'clerk' | 'nextauth' | 'supabase'
 export type DatabaseProvider = 'postgres' | 'sqlite' | 'supabase'
 export type PaymentsProvider = 'stripe' | 'lemonsqueezy'
 export type EmailProvider = 'resend' | 'postmark'
+export type NextVersion = '15' | '16'
 
 export type ProjectConfig = {
   name: string
   outDir: string
+  nextVersion: NextVersion
   auth: AuthProvider
   database: DatabaseProvider
   payments: PaymentsProvider | null
@@ -17,6 +19,7 @@ export type ProjectConfig = {
 export const projectConfigSchema = z.object({
   name: z.string().min(1),
   outDir: z.string().min(1),
+  nextVersion: z.enum(['15', '16']),
   auth: z.enum(['clerk', 'nextauth', 'supabase']),
   database: z.enum(['postgres', 'sqlite', 'supabase']),
   payments: z.enum(['stripe', 'lemonsqueezy']).nullable(),

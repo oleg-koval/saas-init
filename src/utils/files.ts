@@ -18,6 +18,16 @@ export async function writeTemplate(
   }
 }
 
+export async function writeEnvLocal(
+  destPath: string,
+  vars: Record<string, string>
+): Promise<void> {
+  const envFile = path.join(destPath, '.env.local')
+  const lines = Object.entries(vars).map(([key, value]) => `${key}=${value}`)
+  await fs.ensureDir(destPath)
+  await fs.writeFile(envFile, lines.join('\n') + '\n', 'utf-8')
+}
+
 export async function appendEnv(
   destPath: string,
   vars: Record<string, string>
