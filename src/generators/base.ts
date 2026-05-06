@@ -13,7 +13,10 @@ const NEXT_VERSION_MAP: Record<string, string> = {
 }
 
 export async function generate(config: ProjectConfig, outDir: string): Promise<void> {
-  const vars = { name: config.name, nextVersion: NEXT_VERSION_MAP[config.nextVersion] }
+  const vars = {
+    name: config.name,
+    nextVersion: NEXT_VERSION_MAP[config.nextVersion] ?? config.nextVersion,
+  }
 
   const files: [string, string][] = [
     ['app/layout.tsx', 'app/layout.tsx'],
@@ -26,15 +29,14 @@ export async function generate(config: ProjectConfig, outDir: string): Promise<v
     ['postcss.config.mjs', 'postcss.config.mjs'],
     ['lib/utils.ts', 'lib/utils.ts'],
     ['components.json', 'components.json'],
+    ['eslint.config.mjs', 'eslint.config.mjs'],
+    ['lefthook.yml', 'lefthook.yml'],
+    ['AGENTS.md', 'AGENTS.md'],
   ]
 
   await Promise.all(
     files.map(([templateFile, destFile]) =>
-      writeTemplate(
-        path.join(TEMPLATES_DIR, templateFile),
-        path.join(outDir, destFile),
-        vars
-      )
+      writeTemplate(path.join(TEMPLATES_DIR, templateFile), path.join(outDir, destFile), vars)
     )
   )
 
@@ -48,6 +50,17 @@ export async function generate(config: ProjectConfig, outDir: string): Promise<v
   pkg.devDependencies = mergeDeps(pkg.devDependencies ?? {}, {
     tailwindcss: '^4.0.0',
     '@tailwindcss/postcss': '^4.0.0',
+    lefthook: '^1.11.0',
+    'typescript-eslint': '^8.0.0',
   })
+  pkg.scripts = {
+    ...pkg.scripts,
+    lint: 'eslint .',
+    'lint:fix': 'eslint . --fix',
+    format: 'prettier --write .',
+    'format:check': 'prettier --check .',
+    typecheck: 'tsc --noEmit',
+    prepare: 'lefthook install',
+  }
   await fs.writeJson(pkgPath, pkg, { spaces: 2 })
 }

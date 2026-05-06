@@ -96,7 +96,15 @@ describe('initCommand', () => {
 
     await initCommand()
 
-    expect(callOrder).toEqual(['project', 'next-version', 'auth', 'database', 'payments', 'email', 'summary'])
+    expect(callOrder).toEqual([
+      'project',
+      'next-version',
+      'auth',
+      'database',
+      'payments',
+      'email',
+      'summary',
+    ])
   })
 
   it('calls generate with assembled ProjectConfig', async () => {
@@ -160,7 +168,9 @@ describe('initCommand', () => {
 
     // Should not throw — the catch block handles the error
     await expect(initCommand()).resolves.toBeUndefined()
-    expect(clack.log.warn).toHaveBeenCalledWith('Run `pnpm install` manually in your project directory to install dependencies')
+    expect(clack.log.warn).toHaveBeenCalledWith(
+      'Run `pnpm install` manually in your project directory to install dependencies'
+    )
   })
 
   it('passes full config with payments and email to generate', async () => {

@@ -76,12 +76,24 @@ describe('generator orchestrator', () => {
 
   it('calls auth generators in correct order after base', async () => {
     const callOrder: string[] = []
-    ;(baseGen as ReturnType<typeof vi.fn>).mockImplementation(async () => { callOrder.push('base') })
-    ;(landingGen as ReturnType<typeof vi.fn>).mockImplementation(async () => { callOrder.push('landing') })
-    ;(clerkGen as ReturnType<typeof vi.fn>).mockImplementation(async () => { callOrder.push('clerk') })
-    ;(postgresGen as ReturnType<typeof vi.fn>).mockImplementation(async () => { callOrder.push('postgres') })
-    ;(dockerGen as ReturnType<typeof vi.fn>).mockImplementation(async () => { callOrder.push('docker') })
-    ;(githubGen as ReturnType<typeof vi.fn>).mockImplementation(async () => { callOrder.push('github') })
+    ;(baseGen as ReturnType<typeof vi.fn>).mockImplementation(async () => {
+      callOrder.push('base')
+    })
+    ;(landingGen as ReturnType<typeof vi.fn>).mockImplementation(async () => {
+      callOrder.push('landing')
+    })
+    ;(clerkGen as ReturnType<typeof vi.fn>).mockImplementation(async () => {
+      callOrder.push('clerk')
+    })
+    ;(postgresGen as ReturnType<typeof vi.fn>).mockImplementation(async () => {
+      callOrder.push('postgres')
+    })
+    ;(dockerGen as ReturnType<typeof vi.fn>).mockImplementation(async () => {
+      callOrder.push('docker')
+    })
+    ;(githubGen as ReturnType<typeof vi.fn>).mockImplementation(async () => {
+      callOrder.push('github')
+    })
 
     const config = { ...baseConfig, outDir }
     await generate(config)
@@ -191,7 +203,9 @@ describe('generator orchestrator', () => {
       await fs.ensureDir(outDir)
       await fs.writeFile(path.join(outDir, 'package.json'), '{}')
     })
-    ;(clerkGen as ReturnType<typeof vi.fn>).mockImplementation(async () => { callOrder.push('clerk') })
+    ;(clerkGen as ReturnType<typeof vi.fn>).mockImplementation(async () => {
+      callOrder.push('clerk')
+    })
     ;(postgresGen as ReturnType<typeof vi.fn>).mockImplementation(async () => {
       callOrder.push('postgres')
       throw new Error('postgres failed')

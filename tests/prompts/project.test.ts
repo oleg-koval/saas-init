@@ -18,18 +18,14 @@ describe('promptProject', () => {
   })
 
   it('returns name and outDir for valid input', async () => {
-    vi.mocked(p.text)
-      .mockResolvedValueOnce('my-app')
-      .mockResolvedValueOnce('./my-app')
+    vi.mocked(p.text).mockResolvedValueOnce('my-app').mockResolvedValueOnce('./my-app')
 
     const result = await promptProject()
     expect(result).toEqual({ name: 'my-app', outDir: path.resolve('./my-app') })
   })
 
   it('defaults outDir to ./<name>', async () => {
-    vi.mocked(p.text)
-      .mockResolvedValueOnce('cool-project')
-      .mockResolvedValueOnce('./cool-project')
+    vi.mocked(p.text).mockResolvedValueOnce('cool-project').mockResolvedValueOnce('./cool-project')
 
     const result = await promptProject()
     expect(result.outDir).toBe(path.resolve('./cool-project'))
@@ -141,11 +137,9 @@ describe('promptProject', () => {
   })
 
   it('calls process.exit(0) when name prompt is cancelled', async () => {
-    const exitSpy = vi
-      .spyOn(process, 'exit')
-      .mockImplementation(((code: number) => {
-        throw new Error(`process.exit(${code})`)
-      }) as any)
+    const exitSpy = vi.spyOn(process, 'exit').mockImplementation(((code: number) => {
+      throw new Error(`process.exit(${code})`)
+    }) as any)
 
     vi.mocked(p.isCancel).mockReturnValueOnce(true)
     vi.mocked(p.text).mockResolvedValueOnce(Symbol('cancel') as any)
@@ -156,15 +150,11 @@ describe('promptProject', () => {
   })
 
   it('calls process.exit(0) when outDir prompt is cancelled', async () => {
-    const exitSpy = vi
-      .spyOn(process, 'exit')
-      .mockImplementation(((code: number) => {
-        throw new Error(`process.exit(${code})`)
-      }) as any)
+    const exitSpy = vi.spyOn(process, 'exit').mockImplementation(((code: number) => {
+      throw new Error(`process.exit(${code})`)
+    }) as any)
 
-    vi.mocked(p.isCancel)
-      .mockReturnValueOnce(false)
-      .mockReturnValueOnce(true)
+    vi.mocked(p.isCancel).mockReturnValueOnce(false).mockReturnValueOnce(true)
 
     vi.mocked(p.text)
       .mockResolvedValueOnce('my-app')

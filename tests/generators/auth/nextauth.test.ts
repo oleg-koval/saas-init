@@ -30,9 +30,7 @@ afterEach(async () => {
 describe('nextauth generator', () => {
   it('creates app/api/auth/[...nextauth]/route.ts', async () => {
     await generate({ ...config, outDir: tmpDir }, tmpDir)
-    expect(
-      await fs.pathExists(path.join(tmpDir, 'app/api/auth/[...nextauth]/route.ts'))
-    ).toBe(true)
+    expect(await fs.pathExists(path.join(tmpDir, 'app/api/auth/[...nextauth]/route.ts'))).toBe(true)
   })
 
   it('creates auth.ts', async () => {

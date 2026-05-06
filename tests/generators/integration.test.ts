@@ -23,15 +23,8 @@ const AUTH_FILES: Record<string, string[]> = {
     'app/sign-in/[[...sign-in]]/page.tsx',
     'app/sign-up/[[...sign-up]]/page.tsx',
   ],
-  nextauth: [
-    'app/api/auth/[...nextauth]/route.ts',
-    'auth.ts',
-  ],
-  supabase: [
-    'utils/supabase/client.ts',
-    'utils/supabase/server.ts',
-    'middleware.ts',
-  ],
+  nextauth: ['app/api/auth/[...nextauth]/route.ts', 'auth.ts'],
+  supabase: ['utils/supabase/client.ts', 'utils/supabase/server.ts', 'middleware.ts'],
 }
 
 // Database-specific files
@@ -44,9 +37,9 @@ const DB_FILES: Record<string, string[]> = {
 // Expected file counts per combo (payments=null, email=null)
 // supabase db writes utils/supabase/db.ts + utils/supabase/client.ts (unless auth=supabase already wrote client.ts)
 const EXPECTED_FILE_COUNT: Record<string, Record<string, number>> = {
-  clerk: { postgres: 28, sqlite: 28, supabase: 27 },
-  nextauth: { postgres: 27, sqlite: 27, supabase: 26 },
-  supabase: { postgres: 28, sqlite: 28, supabase: 26 },
+  clerk: { postgres: 31, sqlite: 31, supabase: 30 },
+  nextauth: { postgres: 30, sqlite: 30, supabase: 29 },
+  supabase: { postgres: 31, sqlite: 31, supabase: 29 },
 }
 
 async function countFilesRecursive(dir: string): Promise<number> {
@@ -156,7 +149,9 @@ describe('integration: full scaffold', () => {
         }
         await generate(config)
         for (const file of AUTH_FILES[auth]) {
-          expect(await fs.pathExists(path.join(outDir, file)), `missing auth file: ${file}`).toBe(true)
+          expect(await fs.pathExists(path.join(outDir, file)), `missing auth file: ${file}`).toBe(
+            true
+          )
         }
       })
 
@@ -174,7 +169,9 @@ describe('integration: full scaffold', () => {
         }
         await generate(config)
         for (const file of DB_FILES[db]) {
-          expect(await fs.pathExists(path.join(outDir, file)), `missing db file: ${file}`).toBe(true)
+          expect(await fs.pathExists(path.join(outDir, file)), `missing db file: ${file}`).toBe(
+            true
+          )
         }
       })
 

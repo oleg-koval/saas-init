@@ -9,11 +9,7 @@ export async function generate(config: ProjectConfig, outDir: string): Promise<v
   const vars = { name: config.name }
 
   await Promise.all([
-    writeTemplate(
-      path.join(TEMPLATES_DIR, 'Dockerfile'),
-      path.join(outDir, 'Dockerfile'),
-      vars
-    ),
+    writeTemplate(path.join(TEMPLATES_DIR, 'Dockerfile'), path.join(outDir, 'Dockerfile'), vars),
     writeTemplate(
       path.join(TEMPLATES_DIR, '.dockerignore'),
       path.join(outDir, '.dockerignore'),

@@ -48,12 +48,12 @@ Every generated project comes with:
 
 ## Supported Stack Options
 
-| Category  | Options                             |
-|-----------|-------------------------------------|
-| Auth      | Clerk, NextAuth, Supabase Auth      |
-| Database  | Postgres (Drizzle), SQLite (Drizzle), Supabase |
-| Payments  | Stripe, Lemon Squeezy, None         |
-| Email     | Resend, Postmark, None              |
+| Category | Options                                        |
+| -------- | ---------------------------------------------- |
+| Auth     | Clerk, NextAuth, Supabase Auth                 |
+| Database | Postgres (Drizzle), SQLite (Drizzle), Supabase |
+| Payments | Stripe, Lemon Squeezy, None                    |
+| Email    | Resend, Postmark, None                         |
 
 ## Adding a New Provider
 

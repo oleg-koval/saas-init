@@ -48,7 +48,10 @@ describe('supabase-db database generator', () => {
 
   it('does not write client.ts when auth is supabase (already written by auth generator)', async () => {
     await generateSupabaseAuth({ ...config, auth: 'supabase', outDir: tmpDir }, tmpDir)
-    const authClientContent = await fs.readFile(path.join(tmpDir, 'utils/supabase/client.ts'), 'utf-8')
+    const authClientContent = await fs.readFile(
+      path.join(tmpDir, 'utils/supabase/client.ts'),
+      'utf-8'
+    )
     expect(authClientContent).toContain('createBrowserClient')
     expect(authClientContent).toContain('@supabase/ssr')
 
@@ -88,7 +91,9 @@ describe('supabase-db database generator', () => {
     await generate({ ...config, outDir: tmpDir }, tmpDir)
     const envContent = await fs.readFile(path.join(tmpDir, '.env.example'), 'utf-8')
     const urlLines = envContent.split('\n').filter((l) => l.includes('NEXT_PUBLIC_SUPABASE_URL='))
-    const anonLines = envContent.split('\n').filter((l) => l.includes('NEXT_PUBLIC_SUPABASE_ANON_KEY='))
+    const anonLines = envContent
+      .split('\n')
+      .filter((l) => l.includes('NEXT_PUBLIC_SUPABASE_ANON_KEY='))
     expect(urlLines.length).toBe(1)
     expect(anonLines.length).toBe(1)
   })
@@ -96,12 +101,18 @@ describe('supabase-db database generator', () => {
   it('writes db.ts separately when Supabase Auth generator already ran', async () => {
     // Run Supabase Auth generator first - writes client.ts using @supabase/ssr
     await generateSupabaseAuth({ ...config, auth: 'supabase', outDir: tmpDir }, tmpDir)
-    const authClientContent = await fs.readFile(path.join(tmpDir, 'utils/supabase/client.ts'), 'utf-8')
+    const authClientContent = await fs.readFile(
+      path.join(tmpDir, 'utils/supabase/client.ts'),
+      'utf-8'
+    )
     expect(authClientContent).toContain('createBrowserClient')
 
     // Run Supabase DB generator with auth='supabase' - should write db.ts without touching client.ts
     await generate({ ...config, auth: 'supabase', outDir: tmpDir }, tmpDir)
-    const authClientAfter = await fs.readFile(path.join(tmpDir, 'utils/supabase/client.ts'), 'utf-8')
+    const authClientAfter = await fs.readFile(
+      path.join(tmpDir, 'utils/supabase/client.ts'),
+      'utf-8'
+    )
     expect(authClientAfter).toContain('createBrowserClient')
     expect(authClientAfter).toContain('@supabase/ssr')
     const dbContent = await fs.readFile(path.join(tmpDir, 'utils/supabase/db.ts'), 'utf-8')
@@ -114,7 +125,9 @@ describe('supabase-db database generator', () => {
     await generate({ ...config, auth: 'supabase', outDir: tmpDir }, tmpDir)
     const envContent = await fs.readFile(path.join(tmpDir, '.env.example'), 'utf-8')
     const urlLines = envContent.split('\n').filter((l) => l.includes('NEXT_PUBLIC_SUPABASE_URL='))
-    const anonLines = envContent.split('\n').filter((l) => l.includes('NEXT_PUBLIC_SUPABASE_ANON_KEY='))
+    const anonLines = envContent
+      .split('\n')
+      .filter((l) => l.includes('NEXT_PUBLIC_SUPABASE_ANON_KEY='))
     expect(urlLines.length).toBe(1)
     expect(anonLines.length).toBe(1)
   })

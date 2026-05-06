@@ -7,7 +7,9 @@ describe('replaceVars', () => {
   })
 
   it('replaces multiple placeholders', () => {
-    expect(replaceVars('{{greeting}}, {{name}}!', { greeting: 'Hi', name: 'Alice' })).toBe('Hi, Alice!')
+    expect(replaceVars('{{greeting}}, {{name}}!', { greeting: 'Hi', name: 'Alice' })).toBe(
+      'Hi, Alice!'
+    )
   })
 
   it('leaves placeholder intact when key is missing', () => {

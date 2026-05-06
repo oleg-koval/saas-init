@@ -35,9 +35,7 @@ describe('stripe payments generator', () => {
 
   it('creates app/api/webhooks/stripe/route.ts', async () => {
     await generate({ ...config, outDir: tmpDir }, tmpDir)
-    expect(
-      await fs.pathExists(path.join(tmpDir, 'app/api/webhooks/stripe/route.ts'))
-    ).toBe(true)
+    expect(await fs.pathExists(path.join(tmpDir, 'app/api/webhooks/stripe/route.ts'))).toBe(true)
   })
 
   it('adds stripe to package.json dependencies', async () => {
@@ -63,9 +61,7 @@ describe('stripe payments generator', () => {
     await generate({ ...config, outDir: tmpDir }, tmpDir)
     const envContent = await fs.readFile(path.join(tmpDir, '.env.example'), 'utf-8')
     const secretKeyLines = envContent.split('\n').filter((l) => l.includes('STRIPE_SECRET_KEY'))
-    const webhookLines = envContent
-      .split('\n')
-      .filter((l) => l.includes('STRIPE_WEBHOOK_SECRET'))
+    const webhookLines = envContent.split('\n').filter((l) => l.includes('STRIPE_WEBHOOK_SECRET'))
     expect(secretKeyLines.length).toBe(1)
     expect(webhookLines.length).toBe(1)
   })

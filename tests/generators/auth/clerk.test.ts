@@ -36,16 +36,12 @@ describe('clerk auth generator', () => {
 
   it('creates sign-in page', async () => {
     await generate({ ...config, outDir: tmpDir }, tmpDir)
-    expect(
-      await fs.pathExists(path.join(tmpDir, 'app/sign-in/[[...sign-in]]/page.tsx'))
-    ).toBe(true)
+    expect(await fs.pathExists(path.join(tmpDir, 'app/sign-in/[[...sign-in]]/page.tsx'))).toBe(true)
   })
 
   it('creates sign-up page', async () => {
     await generate({ ...config, outDir: tmpDir }, tmpDir)
-    expect(
-      await fs.pathExists(path.join(tmpDir, 'app/sign-up/[[...sign-up]]/page.tsx'))
-    ).toBe(true)
+    expect(await fs.pathExists(path.join(tmpDir, 'app/sign-up/[[...sign-up]]/page.tsx'))).toBe(true)
   })
 
   it('middleware exports clerkMiddleware', async () => {
@@ -76,7 +72,9 @@ describe('clerk auth generator', () => {
     await generate({ ...config, outDir: tmpDir }, tmpDir)
     await generate({ ...config, outDir: tmpDir }, tmpDir)
     const envContent = await fs.readFile(path.join(tmpDir, '.env.example'), 'utf-8')
-    const lines = envContent.split('\n').filter((l) => l.includes('NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY'))
+    const lines = envContent
+      .split('\n')
+      .filter((l) => l.includes('NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY'))
     expect(lines.length).toBe(1)
   })
 })

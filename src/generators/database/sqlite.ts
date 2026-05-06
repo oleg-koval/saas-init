@@ -16,11 +16,7 @@ export async function generate(config: ProjectConfig, outDir: string): Promise<v
 
   await Promise.all(
     files.map(([templateFile, destFile]) =>
-      writeTemplate(
-        path.join(TEMPLATES_DIR, templateFile),
-        path.join(outDir, destFile),
-        {}
-      )
+      writeTemplate(path.join(TEMPLATES_DIR, templateFile), path.join(outDir, destFile), {})
     )
   )
 

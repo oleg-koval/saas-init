@@ -1,19 +1,20 @@
-import tsParser from '@typescript-eslint/parser'
+import tseslint from 'typescript-eslint'
 
-export default [
+export default tseslint.config(
   {
     files: ['src/**/*.ts', 'tests/**/*.ts'],
+    extends: [...tseslint.configs.recommended],
     rules: {
+      'max-lines': ['error', { max: 300 }],
       'no-console': 'off',
-      'no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
-    },
-    languageOptions: {
-      parser: tsParser,
-      ecmaVersion: 2022,
-      sourceType: 'module',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+      ],
+      '@typescript-eslint/no-explicit-any': 'warn',
     },
   },
   {
     ignores: ['dist/**', 'node_modules/**'],
-  },
-]
+  }
+)

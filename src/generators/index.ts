@@ -27,7 +27,9 @@ export async function generate(config: ProjectConfig): Promise<void> {
     await fs.writeFile(`${outDir}/${testFile}`, '')
     await fs.remove(`${outDir}/${testFile}`)
   } catch {
-    throw new Error(`Output directory "${outDir}" is not writable or cannot be created. Check permissions and try again.`)
+    throw new Error(
+      `Output directory "${outDir}" is not writable or cannot be created. Check permissions and try again.`
+    )
   }
 
   const authGenerators = {

@@ -91,7 +91,9 @@ describe('supabase auth generator', () => {
     await generate({ ...config, outDir: tmpDir }, tmpDir)
     const envContent = await fs.readFile(path.join(tmpDir, '.env.example'), 'utf-8')
     const urlLines = envContent.split('\n').filter((l) => l.includes('NEXT_PUBLIC_SUPABASE_URL'))
-    const keyLines = envContent.split('\n').filter((l) => l.includes('NEXT_PUBLIC_SUPABASE_ANON_KEY'))
+    const keyLines = envContent
+      .split('\n')
+      .filter((l) => l.includes('NEXT_PUBLIC_SUPABASE_ANON_KEY'))
     expect(urlLines.length).toBe(1)
     expect(keyLines.length).toBe(1)
   })

@@ -35,9 +35,9 @@ describe('lemonsqueezy payments generator', () => {
 
   it('creates app/api/webhooks/lemonsqueezy/route.ts', async () => {
     await generate({ ...config, outDir: tmpDir }, tmpDir)
-    expect(
-      await fs.pathExists(path.join(tmpDir, 'app/api/webhooks/lemonsqueezy/route.ts'))
-    ).toBe(true)
+    expect(await fs.pathExists(path.join(tmpDir, 'app/api/webhooks/lemonsqueezy/route.ts'))).toBe(
+      true
+    )
   })
 
   it('adds @lemonsqueezy/lemonsqueezy.js to package.json dependencies', async () => {

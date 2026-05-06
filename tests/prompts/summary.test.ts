@@ -58,11 +58,9 @@ describe('promptSummary', () => {
   })
 
   it('calls process.exit(0) when user selects no', async () => {
-    const exitSpy = vi
-      .spyOn(process, 'exit')
-      .mockImplementation(((code: number) => {
-        throw new Error(`process.exit(${code})`)
-      }) as any)
+    const exitSpy = vi.spyOn(process, 'exit').mockImplementation(((code: number) => {
+      throw new Error(`process.exit(${code})`)
+    }) as any)
 
     vi.mocked(p.confirm).mockResolvedValueOnce(false as any)
 
@@ -72,11 +70,9 @@ describe('promptSummary', () => {
   })
 
   it('calls process.exit(0) when cancelled', async () => {
-    const exitSpy = vi
-      .spyOn(process, 'exit')
-      .mockImplementation(((code: number) => {
-        throw new Error(`process.exit(${code})`)
-      }) as any)
+    const exitSpy = vi.spyOn(process, 'exit').mockImplementation(((code: number) => {
+      throw new Error(`process.exit(${code})`)
+    }) as any)
 
     vi.mocked(p.isCancel).mockReturnValueOnce(true)
     vi.mocked(p.confirm).mockResolvedValueOnce(Symbol('cancel') as any)

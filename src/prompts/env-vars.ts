@@ -4,7 +4,7 @@ import type { ProjectConfig } from '../types.js'
 
 export type EnvVars = Record<string, string>
 
-function cancel(value: unknown): never {
+function cancel(_value: unknown): never {
   p.cancel('Operation cancelled')
   process.exit(0)
 }
@@ -23,10 +23,7 @@ async function ask(message: string, placeholder?: string, defaultValue?: string)
 
 async function promptSupabaseVars(): Promise<EnvVars> {
   p.log.step('Supabase — supabase.com → your project → Settings → API')
-  const url = await ask(
-    'Project URL',
-    'https://xxxxxxxxxxxxxxxxxxxx.supabase.co',
-  )
+  const url = await ask('Project URL', 'https://xxxxxxxxxxxxxxxxxxxx.supabase.co')
   const anonKey = await ask('Anon (public) key')
   const serviceKey = await ask('Service role key (secret — keep private)')
   return {
@@ -63,7 +60,7 @@ async function promptPostgresVars(): Promise<EnvVars> {
   const url = await ask(
     'Database URL',
     'postgresql://user:password@localhost:5432/mydb',
-    'postgresql://user:password@localhost:5432/mydb',
+    'postgresql://user:password@localhost:5432/mydb'
   )
   return { DATABASE_URL: url }
 }
@@ -73,7 +70,9 @@ async function promptPostgresVars(): Promise<EnvVars> {
 async function promptStripeVars(): Promise<EnvVars> {
   p.log.step('Stripe — stripe.com → Developers → API keys')
   const secretKey = await ask('Secret key', 'sk_test_...')
-  p.log.info('Webhook secret: add your endpoint after deploy → Developers → Webhooks → copy the signing secret')
+  p.log.info(
+    'Webhook secret: add your endpoint after deploy → Developers → Webhooks → copy the signing secret'
+  )
   const webhookSecret = await ask('Webhook secret (or leave blank to fill later)', 'whsec_...', '')
   return {
     STRIPE_SECRET_KEY: secretKey,
@@ -109,7 +108,7 @@ async function promptPostmarkVars(): Promise<EnvVars> {
 
 export async function promptEnvVars(config: ProjectConfig): Promise<EnvVars> {
   p.log.message('')
-  p.log.message('Now let\'s configure your services.')
+  p.log.message("Now let's configure your services.")
   p.log.message('Follow the links below to find each value.')
   p.log.message('')
 

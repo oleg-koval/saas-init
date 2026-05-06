@@ -16,6 +16,17 @@ CLI scaffolding tool that generates production-ready SaaS projects. Distributed 
 - `templates/` — file templates per stack combination
 - `tests/` — unit + integration tests
 
+## Pre-commit hooks
+
+Lefthook runs on every `git commit`: typecheck → lint → format:check → test.
+Installed automatically via `pnpm install` (`prepare` script):
+
+```bash
+pnpm install
+```
+
+`git commit --no-verify` is rejected in code review.
+
 ## Dev Workflow
 - Language: TypeScript, strict mode
 - Package manager: pnpm

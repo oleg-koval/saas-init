@@ -59,7 +59,6 @@ describe('writeTemplate', () => {
   })
 })
 
-
 describe('appendEnv', () => {
   it('creates .env.example if it does not exist', async () => {
     await appendEnv(tmpDir, { DB_URL: 'postgres://localhost/db' })

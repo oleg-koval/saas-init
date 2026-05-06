@@ -24,17 +24,17 @@ Source: [oleg-koval/RULES.md §2–§3](https://github.com/oleg-koval/starters/b
 
 ### Layer 1 — CLI source
 
-| Rule | Current state | Gap |
-|------|--------------|-----|
-| §2.2 File length 300-line cap | ESLint config has no `max-lines` | Add `max-lines` rule |
-| §2.4 Pre-commit hooks | Not configured | Add `lefthook.yml` |
-| ESLint strength | Parser-only; no typescript-eslint plugin rules | Upgrade to typescript-eslint strict |
+| Rule                          | Current state                                  | Gap                                 |
+| ----------------------------- | ---------------------------------------------- | ----------------------------------- |
+| §2.2 File length 300-line cap | ESLint config has no `max-lines`               | Add `max-lines` rule                |
+| §2.4 Pre-commit hooks         | Not configured                                 | Add `lefthook.yml`                  |
+| ESLint strength               | Parser-only; no typescript-eslint plugin rules | Upgrade to typescript-eslint strict |
 
 ### Layer 2 — Generated project templates
 
-| Rule | Current state | Gap |
-|------|--------------|-----|
-| §2.2–§2.4 All rules | Generated project has no ESLint, no hooks | Add template ESLint config + lefthook |
+| Rule                | Current state                                  | Gap                                           |
+| ------------------- | ---------------------------------------------- | --------------------------------------------- |
+| §2.2–§2.4 All rules | Generated project has no ESLint, no hooks      | Add template ESLint config + lefthook         |
 | §3.1 Vertical Slice | No architectural guidance in generated project | Add `AGENTS.md` template referencing RULES.md |
 
 ---
@@ -51,6 +51,7 @@ Current config is minimal (parser + two rules). The package already has
 `@typescript-eslint/parser` in devDeps. Add the full plugin:
 
 Add to `devDependencies`:
+
 ```json
 "@typescript-eslint/eslint-plugin": "^8.0.0"
 ```
@@ -67,13 +68,16 @@ export default tseslint.config(
     rules: {
       'max-lines': ['error', { max: 300, skipBlankLines: false, skipComments: false }],
       'no-console': 'off',
-      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+      ],
       '@typescript-eslint/no-explicit-any': 'error',
     },
   },
   {
     ignores: ['dist/**', 'node_modules/**'],
-  },
+  }
 )
 ```
 
@@ -131,7 +135,7 @@ export default tseslint.config(
   },
   {
     ignores: ['dist/**', '.next/**', 'node_modules/**'],
-  },
+  }
 )
 ```
 
@@ -167,6 +171,7 @@ and obeys the hard rules at:
 https://github.com/oleg-koval/starters/blob/main/RULES.md
 
 Key constraints:
+
 - File length: 300 lines hard cap (enforced by ESLint `max-lines`)
 - Architecture: Vertical Slice — each feature lives in `features/<name>/`
   (route handler + service + types + tests together)
@@ -185,16 +190,17 @@ Key constraints:
 ## Architecture
 
 Follow Vertical Slice Architecture. Each feature is self-contained:
-
 ```
+
 features/
-  billing/
-    route.ts        ← Next.js route handler
-    service.ts      ← business logic
-    types.ts        ← DTOs and Zod schemas
-    billing.test.ts ← E2E test hitting the route
-  auth/
-    ...
+billing/
+route.ts ← Next.js route handler
+service.ts ← business logic
+types.ts ← DTOs and Zod schemas
+billing.test.ts ← E2E test hitting the route
+auth/
+...
+
 ```
 
 Do not create shared `services/` or `repositories/` layers.
@@ -223,6 +229,7 @@ The base template's `package.json` needs these additions (merge into existing te
 #### 2e. Update generator to write the new template files
 
 In `src/generators/base.ts`, ensure the file-copy logic includes the new template files:
+
 - `eslint.config.mjs`
 - `lefthook.yml`
 - `AGENTS.md`
@@ -238,22 +245,22 @@ these three.
 
 ### CLI (Layer 1)
 
-| File | Change |
-|------|--------|
-| `eslint.config.js` | Upgrade to typescript-eslint recommended + `max-lines: 300` |
-| `lefthook.yml` | Create — pre-commit gates (typecheck/lint/format/test) |
-| `package.json` | Add `lefthook` devDep + `prepare` script + `@typescript-eslint/eslint-plugin` |
-| `AGENTS.md` | Add pre-commit section |
+| File               | Change                                                                        |
+| ------------------ | ----------------------------------------------------------------------------- |
+| `eslint.config.js` | Upgrade to typescript-eslint recommended + `max-lines: 300`                   |
+| `lefthook.yml`     | Create — pre-commit gates (typecheck/lint/format/test)                        |
+| `package.json`     | Add `lefthook` devDep + `prepare` script + `@typescript-eslint/eslint-plugin` |
+| `AGENTS.md`        | Add pre-commit section                                                        |
 
 ### Templates (Layer 2)
 
-| File | Change |
-|------|--------|
-| `templates/base/eslint.config.mjs` | Create — max-lines 300, ts-eslint recommended |
-| `templates/base/lefthook.yml` | Create — pre-commit gates |
-| `templates/base/AGENTS.md` | Create — hard rules pointer + Vertical Slice architecture guidance |
-| `templates/base/package.json` | Add lint/format/typecheck/prepare scripts + lefthook/ts-eslint devDeps |
-| `src/generators/base.ts` | Verify (or update) that new template files are included in copy |
+| File                               | Change                                                                 |
+| ---------------------------------- | ---------------------------------------------------------------------- |
+| `templates/base/eslint.config.mjs` | Create — max-lines 300, ts-eslint recommended                          |
+| `templates/base/lefthook.yml`      | Create — pre-commit gates                                              |
+| `templates/base/AGENTS.md`         | Create — hard rules pointer + Vertical Slice architecture guidance     |
+| `templates/base/package.json`      | Add lint/format/typecheck/prepare scripts + lefthook/ts-eslint devDeps |
+| `src/generators/base.ts`           | Verify (or update) that new template files are included in copy        |
 
 ---
 

@@ -19,7 +19,7 @@ export async function promptProject(): Promise<ProjectAnswers> {
     message: 'Project name',
     placeholder: 'my-app',
     validate: (value) => {
-      const result = isValidNpmName(value)
+      const result = isValidNpmName(value ?? '')
       if (result !== true) return result
     },
   })

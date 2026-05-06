@@ -8,9 +8,6 @@ program
   .description('CLI scaffolding tool for production-ready SaaS projects')
   .version('1.0.0')
 
-program
-  .command('init')
-  .description('Scaffold a new SaaS project')
-  .action(initCommand)
+program.command('init').description('Scaffold a new SaaS project').action(initCommand)
 
 program.parse()
