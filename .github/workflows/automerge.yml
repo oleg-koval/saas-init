@@ -5,17 +5,19 @@ on:
     types: [opened, reopened, synchronize, ready_for_review, edited]
 
 permissions:
-  contents: write
-  pull-requests: write
-  checks: read
-  statuses: read
-  issues: write
+  contents: read
 
 jobs:
   automerge:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      checks: read
+      statuses: read
+      issues: write
     steps:
-      - uses: oleg-koval/pr-automerge-github-action@v1
+      - uses: oleg-koval/pr-automerge-github-action@aa3e1e4d2eb9175a81eb98ddee64d218e03931aa # v1.4.1
         with:
           github-token: ${{ github.token }}
           maintainer-handles: oleg-koval
