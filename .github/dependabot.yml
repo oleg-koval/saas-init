@@ -1,20 +1,19 @@
+# All dependency updates (major, minor, patch) across every ecosystem below
+# land in one weekly PR. If a major breaks CI, fix it in that PR or add an
+# ignore rule for that dependency's major version.
 version: 2
+multi-ecosystem-groups:
+  weekly:
+    schedule:
+      interval: weekly
+      day: monday
+      time: "08:00"
 updates:
   - package-ecosystem: npm
     directory: /
-    schedule:
-      interval: weekly
-      day: monday
-      time: "08:00"
-    open-pull-requests-limit: 5
-    groups:
-      dev-deps:
-        patterns: ["*"]
-
+    patterns: ["*"]
+    multi-ecosystem-group: weekly
   - package-ecosystem: github-actions
     directory: /
-    schedule:
-      interval: weekly
-      day: monday
-      time: "08:00"
-    open-pull-requests-limit: 5
+    patterns: ["*"]
+    multi-ecosystem-group: weekly
